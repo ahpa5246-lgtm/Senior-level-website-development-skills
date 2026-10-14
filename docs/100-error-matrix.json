@@ -1,0 +1,1122 @@
+[
+  {
+    "id": 1,
+    "category": "Planning and architecture",
+    "error": "Coding without requirements",
+    "alternative": "Define actors, outcomes, scope and acceptance before pages",
+    "verification": "Trace each launch feature to a requirement and acceptance scenario",
+    "sources": [
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "id": 2,
+    "category": "Planning and architecture",
+    "error": "Disorganized structure",
+    "alternative": "Group cohesive capabilities with named owners and dependency boundaries",
+    "verification": "Follow one change through files; check for cross-boundary imports",
+    "sources": [
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "id": 3,
+    "category": "Planning and architecture",
+    "error": "Monolithic components",
+    "alternative": "Split distinct responsibilities through small explicit interfaces",
+    "verification": "Change a domain rule without editing presentation/persistence details",
+    "sources": [
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "id": 4,
+    "category": "Planning and architecture",
+    "error": "Code duplication",
+    "alternative": "Share genuinely identical policy; avoid abstracting unrelated similarities",
+    "verification": "Modify one shared rule and exercise every caller",
+    "sources": [
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "id": 5,
+    "category": "Planning and architecture",
+    "error": "Unnecessary complexity",
+    "alternative": "Choose minimal dependencies from measured requirements",
+    "verification": "Explain purpose and resource/maintenance cost of each major dependency",
+    "sources": [
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "id": 6,
+    "category": "Planning and architecture",
+    "error": "Non-scalable design",
+    "alternative": "Model load and growth; define capacity and revisit triggers",
+    "verification": "Load representative data and inspect tail latency and saturation",
+    "sources": [
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "id": 7,
+    "category": "Planning and architecture",
+    "error": "Mixed layers",
+    "alternative": "Keep UI/transport separate from trusted domain and persistence behavior",
+    "verification": "Verify browser modules cannot import privileged database code",
+    "sources": [
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "id": 8,
+    "category": "Planning and architecture",
+    "error": "Inconsistent architecture",
+    "alternative": "Record a supported pattern and justify local exceptions",
+    "verification": "Review comparable flows against documented boundaries",
+    "sources": [
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "id": 9,
+    "category": "Planning and architecture",
+    "error": "Ignoring existing code",
+    "alternative": "Read behavior, tests and conventions before targeted improvement",
+    "verification": "Compare required behavior before/after and run relevant regressions",
+    "sources": [
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "id": 10,
+    "category": "Planning and architecture",
+    "error": "Reinventing critical primitives",
+    "alternative": "Use maintained security/payment/accessibility implementations",
+    "verification": "Review library suitability, maintenance and configuration; test integration",
+    "sources": [
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "id": 11,
+    "category": "Design and user experience",
+    "error": "Generic repetitive design",
+    "alternative": "Choose task/content-led composition and explicit brand rationale",
+    "verification": "Compare two directions with the same real content and tasks",
+    "sources": [
+      "U"
+    ]
+  },
+  {
+    "id": 12,
+    "category": "Design and user experience",
+    "error": "Excessive effects",
+    "alternative": "Use motion/elevation only to convey relationships or feedback",
+    "verification": "Remove each effect and assess benefit plus constrained-device trace",
+    "sources": [
+      "U"
+    ]
+  },
+  {
+    "id": 13,
+    "category": "Design and user experience",
+    "error": "Weak hierarchy",
+    "alternative": "Establish heading, content and action roles",
+    "verification": "Have a reviewer identify primary task and next action quickly",
+    "sources": [
+      "U"
+    ]
+  },
+  {
+    "id": 14,
+    "category": "Design and user experience",
+    "error": "Clutter",
+    "alternative": "Prioritize critical content and disclose secondary detail progressively",
+    "verification": "Complete the main task without unrelated distractions",
+    "sources": [
+      "U"
+    ]
+  },
+  {
+    "id": 15,
+    "category": "Design and user experience",
+    "error": "Inconsistent spacing",
+    "alternative": "Use a small spacing scale and grouping rules",
+    "verification": "Inspect comparable components across routes and widths",
+    "sources": [
+      "U"
+    ]
+  },
+  {
+    "id": 16,
+    "category": "Design and user experience",
+    "error": "Inconsistent visual language",
+    "alternative": "Use shared semantic tokens and documented component variants",
+    "verification": "Compare buttons, headings, focus and states across pages",
+    "sources": [
+      "U"
+    ]
+  },
+  {
+    "id": 17,
+    "category": "Design and user experience",
+    "error": "Fake interactions",
+    "alternative": "Implement promised outcomes across required layers",
+    "verification": "Trigger every control and verify real navigation or durable effect",
+    "sources": [
+      "U"
+    ]
+  },
+  {
+    "id": 18,
+    "category": "Design and user experience",
+    "error": "Missing UI states",
+    "alternative": "Specify loading, empty, validation, denied, conflict and outage states",
+    "verification": "Force each state with controlled data/network responses",
+    "sources": [
+      "U"
+    ]
+  },
+  {
+    "id": 19,
+    "category": "Design and user experience",
+    "error": "Confusing navigation",
+    "alternative": "Organize destinations around user tasks and clear labels",
+    "verification": "Observe representative users reaching key tasks and returning",
+    "sources": [
+      "U"
+    ]
+  },
+  {
+    "id": 20,
+    "category": "Design and user experience",
+    "error": "No feedback",
+    "alternative": "Report pending and actual outcomes with recovery actions",
+    "verification": "Submit slow/failing/successful operations and inspect announcements",
+    "sources": [
+      "U"
+    ]
+  },
+  {
+    "id": 21,
+    "category": "Responsiveness and accessibility",
+    "error": "Desktop-only layout",
+    "alternative": "Adapt hierarchy and controls to narrow screens",
+    "verification": "Exercise core journeys on touch viewport and real device if available",
+    "sources": [
+      "W",
+      "U"
+    ]
+  },
+  {
+    "id": 22,
+    "category": "Responsiveness and accessibility",
+    "error": "Fixed overflow widths",
+    "alternative": "Use fluid layout and constrained responsive sizing",
+    "verification": "Check reflow at 320 CSS pixels where applicable and enlarged text",
+    "sources": [
+      "W",
+      "U"
+    ]
+  },
+  {
+    "id": 23,
+    "category": "Responsiveness and accessibility",
+    "error": "Overlapping content",
+    "alternative": "Use intrinsic sizing and test long real content",
+    "verification": "Inspect long labels, errors, zoom and breakpoint transitions",
+    "sources": [
+      "W",
+      "U"
+    ]
+  },
+  {
+    "id": 24,
+    "category": "Responsiveness and accessibility",
+    "error": "Broken Arabic RTL",
+    "alternative": "Use language/direction, logical CSS and mixed-text isolation",
+    "verification": "Test Arabic/English dates, prices, URLs and keyboard order",
+    "sources": [
+      "W",
+      "U"
+    ]
+  },
+  {
+    "id": 25,
+    "category": "Responsiveness and accessibility",
+    "error": "Poor contrast",
+    "alternative": "Assign semantic colors and verify actual pairings",
+    "verification": "Measure text and applicable non-text contrast in all states",
+    "sources": [
+      "W",
+      "U"
+    ]
+  },
+  {
+    "id": 26,
+    "category": "Responsiveness and accessibility",
+    "error": "Small touch targets",
+    "alternative": "Meet applicable WCAG target-size rules and comfortable spacing",
+    "verification": "Measure targets/spacing and try primary actions by touch",
+    "sources": [
+      "W",
+      "U"
+    ]
+  },
+  {
+    "id": 27,
+    "category": "Responsiveness and accessibility",
+    "error": "Mouse-only interaction",
+    "alternative": "Use semantic controls and visible keyboard focus",
+    "verification": "Complete all core tasks without a mouse",
+    "sources": [
+      "W",
+      "U"
+    ]
+  },
+  {
+    "id": 28,
+    "category": "Responsiveness and accessibility",
+    "error": "Unlabeled fields",
+    "alternative": "Associate persistent labels, help and errors",
+    "verification": "Inspect accessible names and screen-reader field announcements",
+    "sources": [
+      "W",
+      "U"
+    ]
+  },
+  {
+    "id": 29,
+    "category": "Responsiveness and accessibility",
+    "error": "Missing image alternatives",
+    "alternative": "Describe meaningful images; empty alt for decorative images",
+    "verification": "Review image purpose and accessible reading experience",
+    "sources": [
+      "W",
+      "U"
+    ]
+  },
+  {
+    "id": 30,
+    "category": "Responsiveness and accessibility",
+    "error": "Broken dialog focus",
+    "alternative": "Use appropriate focus placement, containment and return",
+    "verification": "Open, navigate, dismiss and reopen using keyboard/screen reader",
+    "sources": [
+      "W",
+      "U"
+    ]
+  },
+  {
+    "id": 31,
+    "category": "Frontend and React",
+    "error": "Redundant state",
+    "alternative": "Store minimal source state; derive calculable values",
+    "verification": "Update inputs and assert derived views remain consistent",
+    "sources": [
+      "R"
+    ]
+  },
+  {
+    "id": 32,
+    "category": "Frontend and React",
+    "error": "Unnecessary effects",
+    "alternative": "Use event handlers/derived values; effects synchronize external systems",
+    "verification": "Review each effect purpose and dependent update behavior",
+    "sources": [
+      "R"
+    ]
+  },
+  {
+    "id": 33,
+    "category": "Frontend and React",
+    "error": "Unstable keys",
+    "alternative": "Use stable identity for mutable/reorderable lists",
+    "verification": "Insert/delete/reorder and verify inputs stay with correct records",
+    "sources": [
+      "R"
+    ]
+  },
+  {
+    "id": 34,
+    "category": "Frontend and React",
+    "error": "Direct state mutation",
+    "alternative": "Update through supported immutable state patterns",
+    "verification": "Verify prior snapshots unchanged and expected rerender occurs",
+    "sources": [
+      "R"
+    ]
+  },
+  {
+    "id": 35,
+    "category": "Frontend and React",
+    "error": "Excessive rerenders",
+    "alternative": "Profile first, localize state, memoize only justified work",
+    "verification": "Measure representative interaction before/after optimization",
+    "sources": [
+      "R"
+    ]
+  },
+  {
+    "id": 36,
+    "category": "Frontend and React",
+    "error": "Request races",
+    "alternative": "Cancel or ignore superseded responses by request identity",
+    "verification": "Resolve earlier request last and assert newest view stays correct",
+    "sources": [
+      "R"
+    ]
+  },
+  {
+    "id": 37,
+    "category": "Frontend and React",
+    "error": "Resource leaks",
+    "alternative": "Pair external subscriptions/listeners with lifecycle cleanup",
+    "verification": "Mount/unmount repeatedly and inspect duplicate handlers/resources",
+    "sources": [
+      "R"
+    ]
+  },
+  {
+    "id": 38,
+    "category": "Frontend and React",
+    "error": "Hydration mismatch",
+    "alternative": "Keep server/client initial output deterministic",
+    "verification": "Inspect production hydration logs with locale/time variations",
+    "sources": [
+      "R"
+    ]
+  },
+  {
+    "id": 39,
+    "category": "Frontend and React",
+    "error": "Unneeded client code",
+    "alternative": "Render static/server work outside interactive client boundaries",
+    "verification": "Inspect production route bundles and browser-only requirements",
+    "sources": [
+      "R"
+    ]
+  },
+  {
+    "id": 40,
+    "category": "Frontend and React",
+    "error": "Lost input state",
+    "alternative": "Preserve intentional component identity and draft lifecycle",
+    "verification": "Navigate/update unrelated state and verify drafts persist as contracted",
+    "sources": [
+      "R"
+    ]
+  },
+  {
+    "id": 41,
+    "category": "Backend and API",
+    "error": "Trusting frontend validation",
+    "alternative": "Validate and enforce permissions server-side",
+    "verification": "Bypass UI and send invalid/unauthorized requests directly",
+    "sources": [
+      "O",
+      "S",
+      "G"
+    ]
+  },
+  {
+    "id": 42,
+    "category": "Backend and API",
+    "error": "Incomplete validation",
+    "alternative": "Define schemas, bounds, allowed fields and semantic rules",
+    "verification": "Send wrong types, boundary values and forbidden fields",
+    "sources": [
+      "O",
+      "S",
+      "G"
+    ]
+  },
+  {
+    "id": 43,
+    "category": "Backend and API",
+    "error": "False HTTP success",
+    "alternative": "Use consistent status and error contracts matching outcome",
+    "verification": "Assert response status/body and persisted state for failures",
+    "sources": [
+      "O",
+      "S",
+      "G"
+    ]
+  },
+  {
+    "id": 44,
+    "category": "Backend and API",
+    "error": "Unbounded list responses",
+    "alternative": "Enforce page limits with stable ordering",
+    "verification": "Request oversized pages and inspect payload/query bounds",
+    "sources": [
+      "O",
+      "S",
+      "G"
+    ]
+  },
+  {
+    "id": 45,
+    "category": "Backend and API",
+    "error": "No dependency timeout",
+    "alternative": "Use explicit deadlines and bounded cancellation",
+    "verification": "Hold dependency response and measure controlled termination",
+    "sources": [
+      "O",
+      "S",
+      "G"
+    ]
+  },
+  {
+    "id": 46,
+    "category": "Backend and API",
+    "error": "Blind retries",
+    "alternative": "Retry only eligible failures with bounded backoff/jitter",
+    "verification": "Simulate repeated failures and inspect attempts and duplicate effects",
+    "sources": [
+      "O",
+      "S",
+      "G"
+    ]
+  },
+  {
+    "id": 47,
+    "category": "Backend and API",
+    "error": "No idempotency",
+    "alternative": "Atomically scope/deduplicate operations with payload matching",
+    "verification": "Replay/concurrently submit same key; reject changed payload",
+    "sources": [
+      "O",
+      "S",
+      "G"
+    ]
+  },
+  {
+    "id": 48,
+    "category": "Backend and API",
+    "error": "Leaking internal errors",
+    "alternative": "Return safe messages and restricted correlated diagnostics",
+    "verification": "Cause internal failures and inspect response/log redaction",
+    "sources": [
+      "O",
+      "S",
+      "G"
+    ]
+  },
+  {
+    "id": 49,
+    "category": "Backend and API",
+    "error": "Inconsistent API",
+    "alternative": "Document field names, schemas and compatibility policy",
+    "verification": "Run consumer contract checks across related endpoints",
+    "sources": [
+      "O",
+      "S",
+      "G"
+    ]
+  },
+  {
+    "id": 50,
+    "category": "Backend and API",
+    "error": "Assuming providers succeed",
+    "alternative": "Define outage, reconciliation and degradation behavior",
+    "verification": "Fail provider calls and verify truthful state and recovery",
+    "sources": [
+      "O",
+      "S",
+      "G"
+    ]
+  },
+  {
+    "id": 51,
+    "category": "Security",
+    "error": "Exposed API secrets",
+    "alternative": "Keep privileged keys server-side and rotate exposures",
+    "verification": "Inspect bundle, tracked files and logs without exposing key values",
+    "sources": [
+      "H",
+      "M",
+      "O",
+      "V"
+    ]
+  },
+  {
+    "id": 52,
+    "category": "Security",
+    "error": "Weak action authorization",
+    "alternative": "Deny by default and check action/role on server",
+    "verification": "Ordinary user calls administrative endpoint directly",
+    "sources": [
+      "H",
+      "M",
+      "O",
+      "V"
+    ]
+  },
+  {
+    "id": 53,
+    "category": "Security",
+    "error": "IDOR",
+    "alternative": "Scope object queries/actions to trusted owner/tenant policy",
+    "verification": "User A reads/updates/deletes/exports user B records",
+    "sources": [
+      "H",
+      "M",
+      "O",
+      "V"
+    ]
+  },
+  {
+    "id": 54,
+    "category": "Security",
+    "error": "SQL injection",
+    "alternative": "Use parameterized queries and safe query construction",
+    "verification": "Inspect query sinks and exercise malicious input in authorized tests",
+    "sources": [
+      "H",
+      "M",
+      "O",
+      "V"
+    ]
+  },
+  {
+    "id": 55,
+    "category": "Security",
+    "error": "XSS",
+    "alternative": "Encode by context; sanitize permitted HTML; layer CSP",
+    "verification": "Exercise untrusted text/HTML/URL inputs and verify no execution",
+    "sources": [
+      "H",
+      "M",
+      "O",
+      "V"
+    ]
+  },
+  {
+    "id": 56,
+    "category": "Security",
+    "error": "CSRF where applicable",
+    "alternative": "Protect ambient-credential mutations with appropriate controls",
+    "verification": "Cross-origin forged mutation fails while valid request works",
+    "sources": [
+      "H",
+      "M",
+      "O",
+      "V"
+    ]
+  },
+  {
+    "id": 57,
+    "category": "Security",
+    "error": "Unsafe passwords",
+    "alternative": "Use maintained adaptive password hashing with current parameters",
+    "verification": "Inspect stored format/config and verify no plaintext or fast hashes",
+    "sources": [
+      "H",
+      "M",
+      "O",
+      "V"
+    ]
+  },
+  {
+    "id": 58,
+    "category": "Security",
+    "error": "Unsafe uploads",
+    "alternative": "Bound, inspect and isolate uploads with access controls",
+    "verification": "Try oversized/mismatched/active files and unauthorized retrieval",
+    "sources": [
+      "H",
+      "M",
+      "O",
+      "V"
+    ]
+  },
+  {
+    "id": 59,
+    "category": "Security",
+    "error": "Unsafe CORS",
+    "alternative": "Allow only required origins and credential combinations",
+    "verification": "Test approved/unapproved browser origins; separately test auth",
+    "sources": [
+      "H",
+      "M",
+      "O",
+      "V"
+    ]
+  },
+  {
+    "id": 60,
+    "category": "Security",
+    "error": "Vulnerable dependencies",
+    "alternative": "Lock, audit and remediate supported dependencies",
+    "verification": "Review advisories and applicability; document unresolved risk owner",
+    "sources": [
+      "H",
+      "M",
+      "O",
+      "V"
+    ]
+  },
+  {
+    "id": 61,
+    "category": "Performance and resources",
+    "error": "Oversized images",
+    "alternative": "Serve appropriate responsive variants and compression",
+    "verification": "Compare rendered dimensions, selected source and transfer",
+    "sources": [
+      "P"
+    ]
+  },
+  {
+    "id": 62,
+    "category": "Performance and resources",
+    "error": "Layout shift from media",
+    "alternative": "Reserve dimensions/aspect ratio before load",
+    "verification": "Inspect layout-shift trace under cold slow load",
+    "sources": [
+      "P"
+    ]
+  },
+  {
+    "id": 63,
+    "category": "Performance and resources",
+    "error": "Excessive JavaScript",
+    "alternative": "Prefer native/server behavior and route-specific client code",
+    "verification": "Measure compressed route JS and execution on constrained CPU",
+    "sources": [
+      "P"
+    ]
+  },
+  {
+    "id": 64,
+    "category": "Performance and resources",
+    "error": "No code splitting",
+    "alternative": "Defer heavy route/feature code without creating waterfalls",
+    "verification": "Inspect actual chunks and network critical path",
+    "sources": [
+      "P"
+    ]
+  },
+  {
+    "id": 65,
+    "category": "Performance and resources",
+    "error": "Sequential independent requests",
+    "alternative": "Parallelize independent reads with bounded concurrency",
+    "verification": "Inspect waterfall and quota/saturation impact",
+    "sources": [
+      "P"
+    ]
+  },
+  {
+    "id": 66,
+    "category": "Performance and resources",
+    "error": "No caching",
+    "alternative": "Cache suitable stable data with explicit freshness policy",
+    "verification": "Repeat requests and verify hit behavior and reduced cost",
+    "sources": [
+      "P"
+    ]
+  },
+  {
+    "id": 67,
+    "category": "Performance and resources",
+    "error": "Incorrect/private cache",
+    "alternative": "Scope keys and invalidation to data ownership and freshness",
+    "verification": "Switch users/tenants and mutate data; verify isolation and updates",
+    "sources": [
+      "P"
+    ]
+  },
+  {
+    "id": 68,
+    "category": "Performance and resources",
+    "error": "Heavy fonts",
+    "alternative": "Load only required families, weights and script subsets",
+    "verification": "Inspect font transfer and Arabic fallback/character coverage",
+    "sources": [
+      "P"
+    ]
+  },
+  {
+    "id": 69,
+    "category": "Performance and resources",
+    "error": "Expensive rendering effects",
+    "alternative": "Use measured low-cost motion and static/reduced alternatives",
+    "verification": "Trace scrolling/interactions and inspect long tasks/render work",
+    "sources": [
+      "P"
+    ]
+  },
+  {
+    "id": 70,
+    "category": "Performance and resources",
+    "error": "Eager noncritical loading",
+    "alternative": "Defer below-fold/optional assets; prioritize critical content",
+    "verification": "Inspect initial requests and ensure LCP media is not delayed",
+    "sources": [
+      "P"
+    ]
+  },
+  {
+    "id": 71,
+    "category": "Database and information",
+    "error": "Missing indexes",
+    "alternative": "Index measured high-value query paths",
+    "verification": "Inspect plans and p95 latency on representative cardinalities",
+    "sources": [
+      "D"
+    ]
+  },
+  {
+    "id": 72,
+    "category": "Database and information",
+    "error": "N+1 queries",
+    "alternative": "Batch/join/preload related data within payload bounds",
+    "verification": "Count queries while increasing record count",
+    "sources": [
+      "D"
+    ]
+  },
+  {
+    "id": 73,
+    "category": "Database and information",
+    "error": "Invalid relationships",
+    "alternative": "Model domain cardinality and enforce referential constraints",
+    "verification": "Attempt orphaned/invalid references and exercise lifecycle deletes",
+    "sources": [
+      "D"
+    ]
+  },
+  {
+    "id": 74,
+    "category": "Database and information",
+    "error": "Partial dependent writes",
+    "alternative": "Use correctly scoped transactions for atomic invariants",
+    "verification": "Inject mid-operation failure and assert no partial state",
+    "sources": [
+      "D"
+    ]
+  },
+  {
+    "id": 75,
+    "category": "Database and information",
+    "error": "Concurrent corruption",
+    "alternative": "Select atomic updates/locking/versioning/isolation from invariant",
+    "verification": "Stress simultaneous writes and assert preserved invariant",
+    "sources": [
+      "D"
+    ]
+  },
+  {
+    "id": 76,
+    "category": "Database and information",
+    "error": "No uniqueness constraint",
+    "alternative": "Enforce domain uniqueness in the database",
+    "verification": "Submit concurrent duplicates and verify one allowed record",
+    "sources": [
+      "D"
+    ]
+  },
+  {
+    "id": 77,
+    "category": "Database and information",
+    "error": "Timezone confusion",
+    "alternative": "Store instants correctly and retain scheduling timezone intent",
+    "verification": "Test boundary dates, UTC conversion and DST where applicable",
+    "sources": [
+      "D"
+    ]
+  },
+  {
+    "id": 78,
+    "category": "Database and information",
+    "error": "Unsafe schema change",
+    "alternative": "Use compatible phased migration and backfill plan",
+    "verification": "Run old/new versions against migration and inspect locks/data",
+    "sources": [
+      "D"
+    ]
+  },
+  {
+    "id": 79,
+    "category": "Database and information",
+    "error": "Unverified backup",
+    "alternative": "Protect backups and rehearse restore against RPO/RTO",
+    "verification": "Restore isolated copy and verify integrity and measured recovery",
+    "sources": [
+      "D"
+    ]
+  },
+  {
+    "id": 80,
+    "category": "Database and information",
+    "error": "Excess personal data",
+    "alternative": "Minimize collection and define retention/deletion",
+    "verification": "Inventory fields/logs/backups and execute applicable deletion flow",
+    "sources": [
+      "D"
+    ]
+  },
+  {
+    "id": 81,
+    "category": "Testing and reliability",
+    "error": "Missing logic tests",
+    "alternative": "Test important business invariants with focused unit cases",
+    "verification": "Exercise boundaries and confirm tests detect wrong outcomes",
+    "sources": [
+      "T",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "id": 82,
+    "category": "Testing and reliability",
+    "error": "Render-only validation",
+    "alternative": "Validate observable behavior through necessary layers",
+    "verification": "Complete journey and verify database/API result after refresh",
+    "sources": [
+      "T",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "id": 83,
+    "category": "Testing and reliability",
+    "error": "No E2E journeys",
+    "alternative": "Cover a small set of critical full user outcomes",
+    "verification": "Run isolated browser journey against real test persistence",
+    "sources": [
+      "T",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "id": 84,
+    "category": "Testing and reliability",
+    "error": "Happy-path-only tests",
+    "alternative": "Include invalid, boundary, denial, duplicate and failure cases",
+    "verification": "Map feature failure states to exercised scenarios",
+    "sources": [
+      "T",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "id": 85,
+    "category": "Testing and reliability",
+    "error": "No permission tests",
+    "alternative": "Test role/object/tenant policies with distinct identities",
+    "verification": "Attempt cross-user, cross-tenant and privilege escalation paths",
+    "sources": [
+      "T",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "id": 86,
+    "category": "Testing and reliability",
+    "error": "Ignoring bad networks",
+    "alternative": "Test latency, timeout, disconnect and ambiguous completion",
+    "verification": "Interrupt writes and verify recoverable, truthful UI",
+    "sources": [
+      "T",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "id": 87,
+    "category": "Testing and reliability",
+    "error": "Nonisolated tests",
+    "alternative": "Create independent fixtures and cleanup owned data",
+    "verification": "Run reordered/parallel tests without inherited state",
+    "sources": [
+      "T",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "id": 88,
+    "category": "Testing and reliability",
+    "error": "No regression protection",
+    "alternative": "Add a behavior test for a meaningful reproduced defect",
+    "verification": "Prove failure before fix and pass after without implementation coupling",
+    "sources": [
+      "T",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "id": 89,
+    "category": "Testing and reliability",
+    "error": "No diagnostic logs",
+    "alternative": "Use redacted structured logs and correlation",
+    "verification": "Investigate controlled error from request to cause without secrets",
+    "sources": [
+      "T",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "id": 90,
+    "category": "Testing and reliability",
+    "error": "No monitoring",
+    "alternative": "Monitor user impact, tail latency and saturation with owned alerts",
+    "verification": "Trigger safe alert condition and verify routing/runbook usefulness",
+    "sources": [
+      "T",
+      "C",
+      "G"
+    ]
+  },
+  {
+    "id": 91,
+    "category": "Deployment, maintenance and SEO",
+    "error": "Development-only verification",
+    "alternative": "Build and exercise production artifact",
+    "verification": "Run production build/start and core smoke journey",
+    "sources": [
+      "N",
+      "Q",
+      "G"
+    ]
+  },
+  {
+    "id": 92,
+    "category": "Deployment, maintenance and SEO",
+    "error": "Missing configuration",
+    "alternative": "Validate required env schema and document secret setup",
+    "verification": "Start with absent/invalid required config and verify safe failure",
+    "sources": [
+      "N",
+      "Q",
+      "G"
+    ]
+  },
+  {
+    "id": 93,
+    "category": "Deployment, maintenance and SEO",
+    "error": "Development URLs in release",
+    "alternative": "Use validated environment-aware URL construction",
+    "verification": "Scan artifact and exercise deployed links/provider callbacks",
+    "sources": [
+      "N",
+      "Q",
+      "G"
+    ]
+  },
+  {
+    "id": 94,
+    "category": "Deployment, maintenance and SEO",
+    "error": "Missing error routes",
+    "alternative": "Provide useful not-found/server-failure behavior and statuses",
+    "verification": "Request unknown route and force controlled server error",
+    "sources": [
+      "N",
+      "Q",
+      "G"
+    ]
+  },
+  {
+    "id": 95,
+    "category": "Deployment, maintenance and SEO",
+    "error": "Accidental indexing block",
+    "alternative": "Set indexing by environment and content sensitivity",
+    "verification": "Inspect production robots/meta/headers for public routes",
+    "sources": [
+      "N",
+      "Q",
+      "G"
+    ]
+  },
+  {
+    "id": 96,
+    "category": "Deployment, maintenance and SEO",
+    "error": "Missing metadata",
+    "alternative": "Provide page-specific title/description and sharing data",
+    "verification": "Inspect rendered public pages and link preview metadata",
+    "sources": [
+      "N",
+      "Q",
+      "G"
+    ]
+  },
+  {
+    "id": 97,
+    "category": "Deployment, maintenance and SEO",
+    "error": "Missing discovery sitemap",
+    "alternative": "Supply sitemap when useful for public indexable content",
+    "verification": "Validate URLs/status/canonical consistency; N/A for private-only apps",
+    "sources": [
+      "N",
+      "Q",
+      "G"
+    ]
+  },
+  {
+    "id": 98,
+    "category": "Deployment, maintenance and SEO",
+    "error": "Incorrect canonical",
+    "alternative": "Point to intended canonical public URL",
+    "verification": "Inspect aliases/query variants and canonical output",
+    "sources": [
+      "N",
+      "Q",
+      "G"
+    ]
+  },
+  {
+    "id": 99,
+    "category": "Deployment, maintenance and SEO",
+    "error": "No rollback plan",
+    "alternative": "Retain compatible safe release and separate data recovery plan",
+    "verification": "Rehearse rollback trigger/procedure without destructive data reversal",
+    "sources": [
+      "N",
+      "Q",
+      "G"
+    ]
+  },
+  {
+    "id": 100,
+    "category": "Deployment, maintenance and SEO",
+    "error": "Incomplete documentation",
+    "alternative": "Document run/config/decisions/tests/operations and known gaps",
+    "verification": "Fresh maintainer follows setup and verifies core journey",
+    "sources": [
+      "N",
+      "Q",
+      "G"
+    ]
+  }
+]
