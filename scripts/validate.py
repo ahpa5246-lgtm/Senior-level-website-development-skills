@@ -26,4 +26,12 @@ for file in root.rglob("*.md"):
             errors.append(f"{file.relative_to(root)} -> {target}")
 assert not errors, "Broken local links: " + repr(errors)
 assert len({r["category"] for r in rows}) == 10
-print(f"PASS: 100 unique ordered errors, 10 categories, source IDs and local links; {len(list(root.rglob('*.md')))} Markdown files")
+paired = (root / "docs/500-senior-pairs-ar.md").read_text(encoding="utf-8")
+paired_ids = [int(n) for n in re.findall(r"^\\|\\s*(\\d+)\\s*\\|", paired, re.M)]
+assert paired_ids == list(range(1, 501)), "500-item paired matrix has missing/duplicate IDs"
+groups = re.findall(r"^###\\s+\\d{2}\\s+—", paired, re.M)
+assert len(groups) == 25, "Expected 25 topic sections"
+questions = json.loads((root / "config/20-questions-ar.json").read_text(encoding="utf-8"))["questions"]
+assert [q["id"] for q in questions] == [f"Q{i:02}" for i in range(1, 21)]
+assert all(q.get("prompt") and q.get("reason") and q.get("key") for q in questions)
+print(f"PASS: 100 legacy items + 500 ordered paired errors in 25 sections, 20 interview questions, source IDs and local links; {len(list(root.rglob('*.md')))} Markdown files")
