@@ -299,6 +299,7 @@ def manager_packet(doc, assessment, evidence_dir=None):
     return {
         "schema_version": "1.0", "project_id": doc["project_id"],
         "target_repo": doc.get("target_repo"),
+        "release_mode": doc.get("release_mode"),
         "cost_scenarios_evidence": ({"artifact_path": doc.get("cost_report_path"),
                                    "artifact_sha256": doc.get("cost_report_sha256")}
                                   if doc.get("release_mode") != "private_preview" else None),
