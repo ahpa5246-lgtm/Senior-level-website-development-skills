@@ -1,0 +1,175 @@
+{
+  "version": "1.0",
+  "locale": "ar-IQ",
+  "question_count": 20,
+  "answer_policy": "Every answer may be 'unknown'; critical unknowns prevent implementation until resolved or recorded with safe non-deploying scope.",
+  "questions": [
+    {
+      "id": "Q01",
+      "prompt": "شنو نوع المشروع: موقع تعريفي، تطبيق تفاعلي، لعبة، أداة، أو نظام مرتبط بأجهزة؟",
+      "reason": "يحدد شكل التنفيذ والفحوص",
+      "key": "kind",
+      "critical": true
+    },
+    {
+      "id": "Q02",
+      "prompt": "اشرح الفكرة بجملتين: لمن؟ وشنو الشيء اللي راح تسهّله؟",
+      "reason": "يمنع بناء صفحات بلا مشكلة واضحة",
+      "key": "goal",
+      "critical": true
+    },
+    {
+      "id": "Q03",
+      "prompt": "من الأشخاص اللي راح يستعملوه، وشكد يعرفون بالتقنية؟",
+      "reason": "يحدد التصميم وإمكانية الوصول",
+      "key": "audience",
+      "critical": true
+    },
+    {
+      "id": "Q04",
+      "prompt": "شنو أهم شيء يسويه الزائر بنجاح من البداية للنهاية؟",
+      "reason": "رحلة الاستخدام الرئيسية",
+      "key": "core_journey",
+      "critical": true
+    },
+    {
+      "id": "Q05",
+      "prompt": "اذكر ثلاث ميزات لا يمكن الاستغناء عنها، وميزات ممكن تنتظر.",
+      "reason": "يحدد الأولوية والنطاق",
+      "key": "features",
+      "critical": true
+    },
+    {
+      "id": "Q06",
+      "prompt": "كم شخص تتوقع يزور أو يستخدم المشروع بالشهر؟ حتى نطاق تقريبي يكفي.",
+      "reason": "السعة والتكلفة والقياس",
+      "key": "monthly_users",
+      "critical": true
+    },
+    {
+      "id": "Q07",
+      "prompt": "هل ممكن يدخلون أو يلعبون بنفس اللحظة؟ تقريبًا شكد؟",
+      "reason": "ذروة الحمل وليس العدد الشهري",
+      "key": "concurrent_users",
+      "critical": true
+    },
+    {
+      "id": "Q08",
+      "prompt": "شنو أقصى مبلغ ممكن تدفعه شهريًا؟ وبأي عملة؟ صفر هم جواب مقبول.",
+      "reason": "شرط تكلفة ملزم",
+      "key": "monthly_budget",
+      "critical": true
+    },
+    {
+      "id": "Q09",
+      "prompt": "تگدر تدفع مبلغًا مرة واحدة للدومين أو التجهيز؟ وإذا لا، اكتب صفر.",
+      "reason": "يفصل التأسيس عن المصروف المتكرر",
+      "key": "one_time_budget",
+      "critical": true
+    },
+    {
+      "id": "Q10",
+      "prompt": "متى تحتاج النسخة الأولى؟ وهل الموعد مرن؟",
+      "reason": "تحديد نطاق واقعي",
+      "key": "deadline",
+      "critical": false
+    },
+    {
+      "id": "Q11",
+      "prompt": "هل يحتاج تسجيل حسابات أو يشتغل بدون حساب؟",
+      "reason": "الهوية وإدارة الجلسات",
+      "key": "accounts",
+      "critical": true
+    },
+    {
+      "id": "Q12",
+      "prompt": "شنو البيانات اللي يستلمها أو يخزنها: أسماء، صور، ملفات، مواقع، معلومات صحية؟",
+      "reason": "خصوصية وحماية",
+      "key": "data_types",
+      "critical": true
+    },
+    {
+      "id": "Q13",
+      "prompt": "هل راح يدفع المستخدم فلوس أو يدفع المشروع لجهات خارجية؟",
+      "reason": "تكاليف ومعاملات مالية",
+      "key": "payments",
+      "critical": true
+    },
+    {
+      "id": "Q14",
+      "prompt": "هل فيه بث مباشر أو اتصالات أو رفع فيديوهات أو محادثات فورية؟",
+      "reason": "يغيّر البنية وكلفة النقل",
+      "key": "realtime_media",
+      "critical": true
+    },
+    {
+      "id": "Q15",
+      "prompt": "هل تحتاج المعلومات تظل محفوظة بعد إغلاق الصفحة؟ ولأي مدة؟",
+      "reason": "قاعدة البيانات والنسخ الاحتياطي",
+      "key": "persistence",
+      "critical": true
+    },
+    {
+      "id": "Q16",
+      "prompt": "من يگدر يضيف أو يعدّل أو يحذف المحتوى؟ الكل لو أشخاص محددين؟",
+      "reason": "حدود الصلاحيات",
+      "key": "roles",
+      "critical": true
+    },
+    {
+      "id": "Q17",
+      "prompt": "هل أغلب المستخدمين على هواتف ضعيفة أو إنترنت بطيء؟ وهل مطلوب وضع بدون إنترنت؟",
+      "reason": "ميزانيات الأداء والتوافق",
+      "key": "devices",
+      "critical": false
+    },
+    {
+      "id": "Q18",
+      "prompt": "شنو اللغات المطلوبة؟ وهل الواجهة عربية من اليمين لليسار؟",
+      "reason": "التعريب وسلوك الواجهة",
+      "key": "locales",
+      "critical": false
+    },
+    {
+      "id": "Q19",
+      "prompt": "من راح يتابع المشروع إذا تعطّل أو وصلت مشكلة؟ وهل تحتاج حفظ واسترجاع بيانات؟",
+      "reason": "امتلاك التشغيل وRPO/RTO",
+      "key": "operations_owner",
+      "critical": true
+    },
+    {
+      "id": "Q20",
+      "prompt": "تريد عرض تجريبي خاص لو إطلاق حقيقي للناس؟ وشنو العلامة اللي تخليك تكول نجح؟",
+      "reason": "معيار قبول واستعداد إطلاق",
+      "key": "release_goal",
+      "critical": true
+    }
+  ],
+  "conditional_followups": [
+    {
+      "if": "Q14 indicates live video or conferences",
+      "ask": "هل تقبل استعمال منصة خارجية للمكالمات بدل استضافة الفيديو بنفسك؟ ما عدد المشاركين وساعات البث شهريًا؟",
+      "gate": "require bandwidth and provider quotes before self-hosted streaming"
+    },
+    {
+      "if": "Q12 indicates health, payments, minors, precise location or other sensitive records",
+      "ask": "هل توجد موافقات ومراجعة مختصة للبيانات الحساسة، ومن المخوّل بالوصول لها؟",
+      "gate": "no real collection or public release before review"
+    },
+    {
+      "if": "Q08 is zero",
+      "ask": "هل تقبل حدود الخدمات المجانية، التوقف التلقائي، أو دومين مجاني فرعي؟",
+      "gate": "no paid dependency without owner approval"
+    },
+    {
+      "if": "Q01 is game",
+      "ask": "اللعبة فردية لو متعددة اللاعبين؟ تحتاج مكافحة غش أو سيرفر دائم؟",
+      "gate": "define authoritative game state and concurrency"
+    },
+    {
+      "if": "Q01 is robotics",
+      "ask": "هل سيتحكم بأجهزة حقيقية أم مجرد محاكاة؟ ما وسائل الإيقاف الآمن؟",
+      "gate": "physical actuation requires separate review"
+    }
+  ]
+}
