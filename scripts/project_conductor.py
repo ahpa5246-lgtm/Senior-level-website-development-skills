@@ -9,6 +9,7 @@ import re
 import sys
 from pathlib import Path
 from portfolio_intake import assess, questionnaire, IntakeError
+from report_merger import combine_evidence, describe_evidence
 
 ROOT = Path(__file__).resolve().parents[1]
 GATES = ROOT / "config/senior-gates.json"
@@ -341,6 +342,9 @@ def markdown_owner_report(report):
         "**غير مُنجز حاليًا:** صورة فعلية للتصميم واختبارات المتصفح على تطبيق حي؛ المطلوب إنشاء مفهوم بصري بعد اعتماد المدخلات.",
         ""
     ]
+    detail=describe_evidence(report)
+    if detail:
+        lines.extend(["",detail])
     return "\n".join(lines)
 
 
@@ -354,6 +358,8 @@ def main(argv=None):
     report.add_argument("--input",required=True)
     report.add_argument("--out",required=True)
     report.add_argument("--markdown-out",help="Additional PRIVATE owner-readable Arabic report")
+    report.add_argument("--references-file",help="Optional GitHub discovery report JSON")
+    report.add_argument("--cost-file",help="Optional hosting cost scenario report JSON")
     args = parser.parse_args(argv)
     try:
         if args.action=="interview":
@@ -361,6 +367,9 @@ def main(argv=None):
         else:
             data = read_private(args.input)
             report_data = evaluate(data)
+            references=read_private(args.references_file) if args.references_file else None
+            cost=read_private(args.cost_file) if args.cost_file else None
+            report_data=combine_evidence(report_data,references,cost)
             if args.markdown_out:
                 primary=safe_output(args.out)
                 summary=safe_output(args.markdown_out)
