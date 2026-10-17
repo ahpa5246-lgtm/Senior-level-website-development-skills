@@ -47,7 +47,7 @@ Start with the [skeptical project conductor](prompts/skeptical-conductor.md) and
 
 A real zero-dependency [intake verifier](scripts/portfolio_intake.py) checks incomplete answers, declared budgets and quotes, reference-repository licensing flags and reviewer/task-packet structure. Example: `python3 scripts/portfolio_intake.py assess --input examples/zero-budget-demo.intake.json`. A separate `packet` command requires linked reviewer evidence and a concrete task plan before emitting a supervisor handoff. **Passing the verifier does not certify provider rates, evidence truthfulness, design quality or production readiness.**
 
-The private [autonomous-project-manager](https://github.com/ahpa5246-lgtm/autonomous-project-manager) remains the project-portfolio supervisor; this public repo does not run Codex continuously, charge services or merge PRs. Keep real project briefs and budgets private.
+The **built-in [manager/](manager/README.md)** is now the project-portfolio supervisor. No second code repository is required. Owner-specific state stays locally gitignored; there is no always-on Codex runner, billing or automatic merge.
 
 ### Verified repository discovery (new)
 Use the [bounded public GitHub researcher](scripts/github_reference_research.py) to produce a JSON shortlist with repository URL, exact current commit, checked license endpoint, top-level test/deploy indicators and explicit unverified costs/security:
@@ -62,7 +62,7 @@ The live request requires explicit `--live`, never clones/runs source code and m
 
 `python3 scripts/hosting_cost_scenarios.py --input PRIVATE-hosting-quotes.json --out PRIVATE-cost-report.json` computes three distinct scenarios from *manually supplied* dated HTTPS provider quotes, fixed fees, annual renewals, usage forecasts, included quotas and overage policy. Missing services and hard-cap overflows are **not** treated as $0. The [fictional test fixture](examples/fictional-hosting-costs.json) intentionally fails for peak saturation and unpriced transactional email. Always keep real budget and provider records private. A result within budget is not provider-price verification or release approval.
 
-For any public project packet, the [intake validator](scripts/portfolio_intake.py) now requires `cost_report_path` and `cost_report_sha256` pointing to that scenario report inside `--evidence-dir`. The private supervisor validates the same artifact before considering import. Neither repository pays fees, quotes hosting automatically or deploys.
+For any public project packet, the [intake validator](scripts/portfolio_intake.py) now requires `cost_report_path` and `cost_report_sha256` pointing to that scenario report inside `--evidence-dir`. The built-in `manager/scripts/reconcile_intake_packet.py` validates the same artifact against local private state. Neither repository pays fees, quotes hosting automatically or deploys.
 
 
 ## V2: one owner-friendly project conductor
@@ -79,4 +79,8 @@ Optionally combine independent research and scenario calculators, rather than pr
 
 These attachments remain UNVERIFIED evidence claims: pinned GitHub SHA is not licence/asset review; a priced scenario is not a checked invoice. Neither input alone can authorize copying code, running Codex, spending, merging or deploying. Tests cover wrong budget currency, missing quotes, missing commits and false authorizations.
 
-The [PRIVATE manager](https://github.com/ahpa5246-lgtm/autonomous-project-manager) adds read-only reviewed packet reconciliation and a bounded sequential day-plan proposal. It does **not** install a 24/7 Codex worker or guarantee execution. All owner answers/reviews belong outside this public repository.
+The built-in [manager/](manager/README.md) adds read-only reviewed packet reconciliation and a bounded sequential day-plan proposal. It does **not** install a 24/7 Codex worker or guarantee execution. All owner answers/reviews belong outside this public repository.
+
+
+## Single-repository engineering + autonomous supervisor
+You now only need this repository: use `scripts/` for the skeptical senior-engineering conductor and `manager/` for the Codex supervisor, packet verification, long-run prompts and safe daily planning. Read [manager/README.md](manager/README.md) and run `python3 manager/scripts/bootstrap_private_state.py --destination manager/.state` in your checkout to create private empty project state. This repo **does not install a background Codex scheduler**; actual execution requires a verified supported runtime. Never publish owner queues, medical data, budgets or secrets to public Git.

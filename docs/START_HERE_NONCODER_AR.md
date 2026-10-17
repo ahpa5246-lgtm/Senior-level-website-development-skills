@@ -17,7 +17,7 @@
 3. بحث عام محدود (بإذن المستخدم): python3 scripts/github_reference_research.py --query "relevant feature name" --limit 3 --out /PRIVATE/references.json --live
 4. تكاليف مؤكدة من أسعار موثقة يدويًا: python3 scripts/hosting_cost_scenarios.py --input /PRIVATE/verified-prices.json --out /PRIVATE/normal-peak-recovery.json
 5. بعد مراجعة الجدوى والهندسة والأمان والتصميم، يُنفذ أمر packet الخاص بـ portfolio_intake.py مع أربعة ملفات مراجعة حقيقية وتوقيعات SHA-256 داخل مجلد خاص.
-6. يُسلّم packet إلى المستودع الخاص autonomous-project-manager. أدواته تمنع إدخال خطة غير مراجعة، ويقترح plan_reviewed_day.py فترات عمل ولا يبدأ أي مهمة تلقائيًا.
+6. تُسلَّم الخطة إلى المشرف المدمج في نفس المستودع داخل `manager/`، ليقرأ `manager/scripts/reconcile_intake_packet.py` ملفات المراجعة ويقترح `manager/scripts/plan_reviewed_day.py` خطة عمل. لم تعد تحتاج مستودعًا ثانيًا، ولا يتم تشغيل Codex تلقائيًا بمجرد وجود الخطة.
 
 ## ماذا يجب أن يريك الوكيل قبل كتابة الكود؟
 
@@ -43,3 +43,7 @@
 برنامج المقابلة والمخطط والتقرير يعملان محليًا دون خدمات مدفوعة، وأدوات التقييم والتكاليف والبحث لها اختبارات. توجد بوابة تسليم خاصة وخطة يوم عمل. **لم يُنشأ وكيل مستقل يستمر طوال اليوم أو يُشغّل Codex من هذا المستودع، ولم تُجرَ عليه اختبارات أمان لمنتج تجاري حقيقي.** يجب فحص المستودع المستهدف ومعطياته قبل اعتماد أي نتيجة.
 
 للتفاصيل: README.md، prompts/skeptical-conductor.md، docs/portfolio-operating-model.md، docs/500-senior-pairs-ar.md، docs/100-error-matrix.md.
+
+
+## كل شيء في مستودع واحد
+اقرأ [دليل المشرف المدمج](../manager/README.md) أو اطلب من الوكيل قراءة `manager/AGENTS.md` ثم تشغيل `manager/scripts/bootstrap_private_state.py` لإنشاء مساحة حالة خاصة ومحلية. المستودع عام؛ لذلك لا تحفظ سجلاتك الشخصية أو بيانات العملاء داخل ملفات Git العامة. يلزم تكامل فعلي مصرح به إذا أردت جدولة تشغيل Codex.

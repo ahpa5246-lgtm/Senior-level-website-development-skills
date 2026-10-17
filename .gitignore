@@ -1,0 +1,12 @@
+# Single-repository public framework; never publish private manager or project state
+manager/.state/
+manager/private/
+manager/runtime/
+**/__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+artifacts/

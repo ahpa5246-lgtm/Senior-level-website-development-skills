@@ -1,0 +1,37 @@
+name: Unified senior supervisor tests
+on:
+  push:
+    branches: [main, 'feat/unify-supervisor-single-repo-v1']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  supervisor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Verify Python code
+        run: python3 -m compileall -q manager/scripts manager/tests
+      - name: Run private supervisor regression tests
+        run: python3 -m unittest discover -s manager/tests -v
+      - name: Check no real portfolio state is published
+        run: |
+          test ! -e manager/.state
+          test ! -e manager/PROJECT_QUEUE.md
+          test ! -e manager/WORK_LOG.md
+          test ! -e manager/HANDOFFS
+          test ! -e manager/AUDITS
+      - name: Test safe state bootstrap in temporary directory
+        run: |
+          python3 manager/scripts/bootstrap_private_state.py --destination "$RUNNER_TEMP/senior-manager-state"
+          test -s "$RUNNER_TEMP/senior-manager-state/FACTORY_POLICY.md"
+          test -s "$RUNNER_TEMP/senior-manager-state/PROJECT_QUEUE.md"
+          if python3 manager/scripts/bootstrap_private_state.py --destination "$RUNNER_TEMP/senior-manager-state"; then
+            echo "Error: second bootstrap should fail closed"; exit 1
+          fi
