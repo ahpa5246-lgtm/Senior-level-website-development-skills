@@ -368,10 +368,10 @@ def main(argv=None):
                     raise IntakeError("The report and Markdown output must be separate files")
             dest=write_new(args.out,report_data)
             if args.markdown_out:
-                summary=write_new(args.markdown_out,{"text":markdown_owner_report(report_data)})
-                # Plain Markdown, not JSON; the output is private and not executable.
-                raw=summary.read_text(encoding="utf-8")
-                summary.write_text(json.loads(raw)["text"],encoding="utf-8")
+                summary=safe_output(args.markdown_out)
+                summary.parent.mkdir(parents=True, exist_ok=True)
+                with summary.open("x", encoding="utf-8") as report_file:
+                    report_file.write(markdown_owner_report(report_data))
             print(json.dumps({"result":"DRAFT_ONLY", "project_id":report_data["project_id"],
                 "assessment":report_data["assessment_status"],
                 "tasks":len(report_data["plan_draft"]), "gates":len(report_data["conditional_gates"]),
