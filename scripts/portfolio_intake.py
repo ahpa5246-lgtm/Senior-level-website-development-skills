@@ -220,7 +220,7 @@ def check_review_bytes(doc, evidence_dir):
     for role in ("feasibility", "architecture", "security", "design"):
         entry = doc["review_signoffs"][role]
         relative = entry.get("artifact_path")
-        if not isinstance(relative, str) or not relative or "\\\\" in relative:
+        if not isinstance(relative, str) or not relative or chr(92) in relative:
             raise IntakeError("Review requires a relative artifact_path")
         rel = Path(relative)
         if rel.is_absolute() or ".." in rel.parts:
