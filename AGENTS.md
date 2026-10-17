@@ -20,3 +20,7 @@ Read README.md, docs/01-delivery-workflow.md and the relevant domain guides befo
 Unapproved scope gaps in a core journey; fake success; broken object/tenant authorization; leaked credentials; unsafe money/inventory transitions; destructive untested migration; failed production build; inaccessible core interaction; unknown restore procedure where persistent data matters.
 
 Do not convert advisory heuristics into universal laws. Static sites need no invented API; internal tools need no public SEO; every helper does not need its own class or test. Prefer outcome and invariant tests over implementation mirrors.
+
+## Owner-guided discovery and portfolio routing
+
+For new projects or major architecture/hosting changes requested by non-programmers, read [the skeptical conductor](prompts/skeptical-conductor.md), [portfolio operating model](docs/portfolio-operating-model.md), and [20-question contract](config/20-questions-ar.json) before generating target code. Get user constraints and independent evidence; run the actual intake validator. Treat its READY_FOR_PLANNING state only as permission to plan, not to deploy or spend. Reuse working components; check external licenses and operating economics. Existing bounded bug fixes can proceed under existing project policy without repeating the entire questionnaire.
