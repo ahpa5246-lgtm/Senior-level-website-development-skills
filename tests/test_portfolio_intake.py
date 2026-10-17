@@ -132,6 +132,23 @@ class IntakeTests(unittest.TestCase):
         with self.assertRaises(intake.IntakeError):
             intake.manager_packet(self.doc, intake.assess(self.doc))
 
+    def test_public_packet_requires_three_scenario_cost_receipt(self):
+        evidence = self.attach_real_reviews()
+        self.doc["release_mode"] = "public_launch"
+        self.doc["provider_quotes"] = [
+            {"component": item, "currency": "USD", "source_url": "https://example.com/pricing",
+             "checked_on": "2026-10-17", "fixed_monthly": 0,
+             "forecast_units": 0, "included_units": 100, "unit_cost": 0}
+            for item in self.doc["cost_components"]
+        ]
+        self.doc["execution_tasks"] = [{
+            "id": "T1", "objective": "Basic registration",
+            "acceptance": "Persists", "verification": "DB test", "depends_on": []}]
+        assessment = intake.assess(self.doc)
+        self.assertEqual(assessment["status"], "READY_FOR_PLANNING")
+        with self.assertRaises(intake.IntakeError):
+            intake.manager_packet(self.doc, assessment, evidence)
+
     def test_public_risk_classification_is_required_even_if_price_is_known(self):
         self.doc["release_mode"] = "public_launch"
         self.doc.pop("risk_flags")
