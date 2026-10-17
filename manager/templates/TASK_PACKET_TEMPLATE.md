@@ -42,3 +42,7 @@ No merge, deployment, payment, account creation, visibility change, secret handl
 
 ## Final delivery
 Create one feature branch and one draft PR to `main` with summary, commits, exact commands/results, risks, limitations, manual actions, and rollback. If PR creation is unavailable, preserve clean commits and expose the manual Create draft PR action.
+
+
+## Competitive design gate — when packet changes UI
+Before implementing the UI, read `docs/competitive-visual-qa-ar.md` in the unified Senior Skills repository. Collect reputable real released comparators with dated official screenshots/features (not AI-generated replicas), make an explicit navigation map per user goal, and propose two materially different compositions, not just two palettes. Include visual design tokens (type/font/license, spacing, semantic colors, purpose-built 2D illustration and source licenses), empty/loading/error states, Arabic/mixed-script and low-end device test criteria. Before closing the packet, attach actual screenshots for required viewports, reference target commit, exercise a real user task with keyboard and RTL where relevant, explain where our app is weaker than benchmarks and re-run `scripts/visual_quality_gate.py`. If critical visual evidence is missing, keep the task open or blocked and do not call it finished.
