@@ -208,7 +208,34 @@ def assess(doc):
     }
 
 
-def manager_packet(doc, assessment):
+def check_review_bytes(doc, evidence_dir):
+    """Verify recorded review files, not self-declared hash strings alone."""
+    import hashlib
+    if evidence_dir is None:
+        raise IntakeError("Packet requires --evidence-dir with real reviewer files")
+    root = Path(evidence_dir)
+    if root.is_symlink() or not root.is_dir():
+        raise IntakeError("Evidence directory missing or symlinked")
+    resolved = root.resolve()
+    for role in ("feasibility", "architecture", "security", "design"):
+        entry = doc["review_signoffs"][role]
+        relative = entry.get("artifact_path")
+        if not isinstance(relative, str) or not relative or "\\\\" in relative:
+            raise IntakeError("Review requires a relative artifact_path")
+        rel = Path(relative)
+        if rel.is_absolute() or ".." in rel.parts:
+            raise IntakeError("Review file path escapes evidence directory")
+        path = root / rel
+        if any(p.is_symlink() for p in (path, *path.parents) if p != root.parent):
+            raise IntakeError("Symlinked review files are forbidden")
+        if not path.resolve().is_relative_to(resolved) or not path.is_file() or path.stat().st_size > 500000:
+            raise IntakeError("Review file missing, too large or outside evidence directory")
+        evidence = path.read_bytes()
+        if not evidence or hashlib.sha256(evidence).hexdigest() != entry["artifact_sha256"]:
+            raise IntakeError("Review artifact hash mismatch: " + role)
+
+
+def manager_packet(doc, assessment, evidence_dir=None):
     if assessment["status"] != "READY_FOR_PLANNING":
         raise IntakeError("Fail closed: owner constraints not resolved; cannot prepare manager packet")
     signoffs = doc.get("review_signoffs")
@@ -230,6 +257,7 @@ def manager_packet(doc, assessment):
     reviewers = [signoffs[role]["reviewer"] for role in ("feasibility", "architecture", "security", "design")]
     if len(set(reviewers)) != 4:
         raise IntakeError("Reviews require distinct declared reviewer identities")
+    check_review_bytes(doc, evidence_dir)
     plan = doc.get("execution_tasks")
     if not isinstance(plan, list) or not plan:
         raise IntakeError("Planner must supply actual specific acceptance-tested tasks; no generic auto-generated task queue")
@@ -270,6 +298,8 @@ def main(argv=None):
         sub = cmd.add_parser(op)
         sub.add_argument("--input", required=True)
         sub.add_argument("--output")
+        if op == "packet":
+            sub.add_argument("--evidence-dir", required=True)
     args = parser.parse_args(argv)
     try:
         if args.command == "questions":
@@ -283,7 +313,7 @@ def main(argv=None):
         path = Path(args.input)
         doc = json.loads(path.read_text(encoding="utf-8"))
         decision = assess(doc)
-        result = decision if args.command == "assess" else manager_packet(doc, decision)
+        result = decision if args.command == "assess" else manager_packet(doc, decision, args.evidence_dir)
         payload = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
         if args.output:
             target = Path(args.output)
