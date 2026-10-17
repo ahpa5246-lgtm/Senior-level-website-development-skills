@@ -208,31 +208,52 @@ def assess(doc):
     }
 
 
-def check_review_bytes(doc, evidence_dir):
-    """Verify recorded review files, not self-declared hash strings alone."""
+def checked_evidence_file(root, relative, expected):
     import hashlib
+    if not isinstance(relative, str) or not relative or chr(92) in relative:
+        raise IntakeError("Evidence requires a relative file path")
+    rel = Path(relative)
+    if rel.is_absolute() or ".." in rel.parts:
+        raise IntakeError("Evidence file path escapes evidence directory")
+    path = root / rel
+    if any(p.is_symlink() for p in (path, *path.parents) if p != root.parent):
+        raise IntakeError("Symlinked evidence files are forbidden")
+    if not path.resolve().is_relative_to(root.resolve()) or not path.is_file() or path.stat().st_size > 500000:
+        raise IntakeError("Evidence file missing, too large or outside evidence directory")
+    evidence = path.read_bytes()
+    if not evidence or hashlib.sha256(evidence).hexdigest() != expected:
+        raise IntakeError("Evidence content SHA256 does not match")
+    return evidence
+
+
+def check_review_bytes(doc, evidence_dir, assessment):
     if evidence_dir is None:
         raise IntakeError("Packet requires --evidence-dir with real reviewer files")
     root = Path(evidence_dir)
     if root.is_symlink() or not root.is_dir():
         raise IntakeError("Evidence directory missing or symlinked")
-    resolved = root.resolve()
     for role in ("feasibility", "architecture", "security", "design"):
         entry = doc["review_signoffs"][role]
-        relative = entry.get("artifact_path")
-        if not isinstance(relative, str) or not relative or chr(92) in relative:
-            raise IntakeError("Review requires a relative artifact_path")
-        rel = Path(relative)
-        if rel.is_absolute() or ".." in rel.parts:
-            raise IntakeError("Review file path escapes evidence directory")
-        path = root / rel
-        if any(p.is_symlink() for p in (path, *path.parents) if p != root.parent):
-            raise IntakeError("Symlinked review files are forbidden")
-        if not path.resolve().is_relative_to(resolved) or not path.is_file() or path.stat().st_size > 500000:
-            raise IntakeError("Review file missing, too large or outside evidence directory")
-        evidence = path.read_bytes()
-        if not evidence or hashlib.sha256(evidence).hexdigest() != entry["artifact_sha256"]:
-            raise IntakeError("Review artifact hash mismatch: " + role)
+        checked_evidence_file(root, entry.get("artifact_path"), entry["artifact_sha256"])
+    # A *public* launch design cannot hand off with only single-scenario budget arithmetic.
+    # A scenario receipt remains a declared quote calculation, not live price verification.
+    if doc.get("release_mode") != "private_preview":
+        relative = doc.get("cost_report_path")
+        digest = doc.get("cost_report_sha256")
+        if not isinstance(digest, str) or not re.fullmatch(r"[a-f0-9]{64}", digest):
+            raise IntakeError("A SHA-256-bound normal/peak/recovery cost report is required")
+        blob = checked_evidence_file(root, relative, digest)
+        try:
+            receipt = json.loads(blob)
+        except (ValueError, TypeError):
+            raise IntakeError("Cost scenario report is not valid JSON") from None
+        if (receipt.get("status") != "QUOTES_WITHIN_DECLARED_BUDGET" or
+            receipt.get("currency") != assessment["budget"]["currency"] or
+            receipt.get("monthly_budget") != assessment["budget"]["amount"] or
+            set(receipt.get("scenarios", {})) != {"normal", "peak", "recovery"} or
+            any(not receipt["scenarios"][k].get("total_is_complete") or receipt["scenarios"][k].get("over_budget")
+                for k in ("normal", "peak", "recovery"))):
+            raise IntakeError("Cost scenarios incomplete, incompatible or over budget")
 
 
 def manager_packet(doc, assessment, evidence_dir=None):
@@ -257,7 +278,7 @@ def manager_packet(doc, assessment, evidence_dir=None):
     reviewers = [signoffs[role]["reviewer"] for role in ("feasibility", "architecture", "security", "design")]
     if len(set(reviewers)) != 4:
         raise IntakeError("Reviews require distinct declared reviewer identities")
-    check_review_bytes(doc, evidence_dir)
+    check_review_bytes(doc, evidence_dir, assessment)
     plan = doc.get("execution_tasks")
     if not isinstance(plan, list) or not plan:
         raise IntakeError("Planner must supply actual specific acceptance-tested tasks; no generic auto-generated task queue")
