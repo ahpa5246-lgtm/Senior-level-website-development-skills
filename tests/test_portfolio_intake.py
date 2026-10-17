@@ -101,5 +101,30 @@ class IntakeTests(unittest.TestCase):
         self.assertFalse(p["release_authorized"])
 
 
+    def test_public_risk_classification_is_required_even_if_price_is_known(self):
+        self.doc["release_mode"] = "public_launch"
+        self.doc.pop("risk_flags")
+        result = intake.assess(self.doc)
+        self.assertIn("RISK_UNCLASSIFIED", {b["code"] for b in result["blockers"]})
+
+    def test_sensitive_public_launch_requires_specialist_record(self):
+        self.doc["release_mode"] = "public_launch"
+        self.doc["risk_flags"]["real_sensitive_data"] = True
+        result = intake.assess(self.doc)
+        self.assertIn("RISK_EVIDENCE_MISSING", {b["code"] for b in result["blockers"]})
+
+    def test_distinct_reviewers_mandatory(self):
+        self.doc["review_signoffs"] = {
+           role: {"passed": True, "reviewer": "same-reviewer",
+                  "artifact_url": "https://github.com/example/private-review",
+                  "artifact_sha256": "a"*64}
+           for role in ("feasibility", "architecture", "security", "design")
+        }
+        self.doc["execution_tasks"] = [
+           {"id": "T1", "objective": "Deliver real flow", "acceptance": "Persist",
+            "verification": "DB integration", "depends_on": []}]
+        with self.assertRaises(intake.IntakeError):
+            intake.manager_packet(self.doc, intake.assess(self.doc))
+
 if __name__ == "__main__":
     unittest.main()
