@@ -282,6 +282,68 @@ def evaluate(doc):
       "next_step":"Verify missing facts + independent reviews; feed manually refined plan to existing packet validator."}
 
 
+
+def markdown_owner_report(report):
+    """Readable private synopsis. Unknown stays unknown; never turns a plan into approval."""
+    info = report["owner_safe_summary"]
+    arch = report["architecture"]
+    def display(value):
+        if value is None:
+            return "غير معروف / لم يُتحقق منه"
+        if isinstance(value, dict):
+            return ", ".join(f"{display(k)}: {display(v)}" for k, v in value.items())
+        return str(value).replace("<", "&lt;").replace(">", "&gt;").replace("|", "/").replace("\n", " ").strip()[:500] or "غير معروف"
+    lines = [
+        "# تقرير مبدئي للمشروع: " + display(report["project_id"]),
+        "",
+        "هذا تحليل أولي للمراجعة، وليس تطبيقًا مبنيًا أو تصميمًا منفذًا أو تصريحًا بالنشر.",
+        "",
+        "## ما الذي نعرفه؟",
+        "- الهدف: " + display(info["goal"]),
+        "- أهم رحلة للمستخدم: " + display(info["primary_journey"]),
+        "- عدد المستخدمين المتوقع: " + display(info["expected"]),
+        "- الحد الشهري الذي وضعته: " + display(info["budget"]),
+        "- مجموع الأسعار الموثقة: " + display(info["quoted_total"]),
+        "- بنود تكلفتها غير محسومة: " + display(info["unpriced"]),
+        "",
+        "## القرار المعماري المؤقت",
+        "- الاتجاه: " + display(arch["provisional_direction"]),
+        "- السبب: " + display(arch["why"]),
+        "- **لم تُعتمد أي هيكلية نهائيًا.** يجب مراجعة البدائل وحجم الاستخدام والصلاحيات.",
+        "",
+        "## أسئلة مهمة قبل كتابة الكود",
+    ]
+    probes = report["question_followups"]
+    lines.extend("- " + display(x["ask"]) + " (يمنع: " + display(x["blocks"]) + ")" for x in probes)
+    if not probes:
+        lines.append("- لم يُولّد هذا الفحص سؤالًا إضافيًا؛ مراجعة الواقع ما زالت مطلوبة.")
+    lines += ["", "## المخاطر والقرارات الناقصة"]
+    findings = report["skeptical_findings"]
+    lines.extend("- " + display(x.get("code", "?")) + ": " + display(x.get("reason", x.get("field", ""))) for x in findings)
+    if not findings:
+        lines.append("- لا توجد موانع آلية مكتشفة؛ هذا ليس إثباتًا لسلامة الموقع.")
+    lines += ["", "## مهام مقترحة للمراجعة وليست قيد التنفيذ"]
+    for task in report["plan_draft"]:
+        lines.append("- " + display(task["id"]) + ": " + display(task["objective"]) +
+                     " — **إثبات الإنجاز:** " + display(task["verification"]))
+    lines += [
+        "", "## فحوص هندسية يجب التخطيط لها",
+    ]
+    for gate in report["conditional_gates"]:
+        lines.append("- " + display(gate["id"]) + " / " + display(gate["applicability"]) +
+                     ": " + display(gate["title"]) + " — اختبار: " + display(gate["test"]))
+    lines += [
+        "", "## قبل تسليم المشروع إلى مشرف Codex",
+        "تحتاج مراجعة جدوى وتكلفة، ومراجعة هندسة وبيانات، ومراجعة أمن وAPI، ومراجعة تصميم وإتاحة استخدام،",
+        "ثم مقارنة مشاريع GitHub الحقيقية وتراخيصها وتواريخ أسعار الخدمات، وربط الأدلة بملفات مراجعة قابلة للتحقق.",
+        "",
+        "**غير مصرح حاليًا:** تشغيل Codex تلقائيًا، دمج تغييرات، نشر الموقع، إدخال بيانات حساسة، أو دفع أي رسوم.",
+        "**غير مُنجز حاليًا:** صورة فعلية للتصميم واختبارات المتصفح على تطبيق حي؛ المطلوب إنشاء مفهوم بصري بعد اعتماد المدخلات.",
+        ""
+    ]
+    return "\n".join(lines)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Senior noncoder blueprint: research/planning only, never dispatch")
     sub = parser.add_subparsers(dest="action",required=True)
@@ -291,6 +353,7 @@ def main(argv=None):
     report = sub.add_parser("blueprint",help="Produce a private evidence-labeled draft from an intake file")
     report.add_argument("--input",required=True)
     report.add_argument("--out",required=True)
+    report.add_argument("--markdown-out",help="Additional PRIVATE owner-readable Arabic report")
     args = parser.parse_args(argv)
     try:
         if args.action=="interview":
@@ -298,7 +361,17 @@ def main(argv=None):
         else:
             data = read_private(args.input)
             report_data = evaluate(data)
+            if args.markdown_out:
+                primary=safe_output(args.out)
+                summary=safe_output(args.markdown_out)
+                if primary==summary:
+                    raise IntakeError("The report and Markdown output must be separate files")
             dest=write_new(args.out,report_data)
+            if args.markdown_out:
+                summary=write_new(args.markdown_out,{"text":markdown_owner_report(report_data)})
+                # Plain Markdown, not JSON; the output is private and not executable.
+                raw=summary.read_text(encoding="utf-8")
+                summary.write_text(json.loads(raw)["text"],encoding="utf-8")
             print(json.dumps({"result":"DRAFT_ONLY", "project_id":report_data["project_id"],
                 "assessment":report_data["assessment_status"],
                 "tasks":len(report_data["plan_draft"]), "gates":len(report_data["conditional_gates"]),
