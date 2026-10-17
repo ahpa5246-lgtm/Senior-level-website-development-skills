@@ -162,16 +162,28 @@ def assess(doc):
             blockers.append({"code": "BUDGET_EXCEEDED", "quoted_monthly": total, "budget": budget["amount"]})
     else:
         unpriced = list(doc.get("cost_components", []))
-    combined = " ".join(str(answers.get(q, "")) for q in ("Q12", "Q13", "Q14"))
-    lowered = combined.lower()
-    if any(token in lowered for token in SENSITIVE):
-        warnings.append({"code": "SENSITIVE_DATA_REVIEW", "reason": "No real collection until domain/security review"})
-        if not preview and not doc.get("specialist_review_record"):
-            blockers.append({"code": "SENSITIVE_LAUNCH_REVIEW_MISSING"})
-    if any(token in str(answers.get("Q14", "")).lower() for token in LIVE):
-        warnings.append({"code": "LIVE_MEDIA_COST", "reason": "Assess SFU/TURN, minutes, egress, recording, concurrent attendees; compare external platform"})
-        if not preview and not doc.get("media_capacity_evidence"):
-            blockers.append({"code": "LIVE_CAPACITY_EVIDENCE_MISSING"})
+    # Natural-language keyword checks are not reliable classifiers of sensitive data.
+    # A separate agent/owner must explicitly classify these risks; production fails closed.
+    flags = doc.get("risk_flags", {})
+    if not isinstance(flags, dict):
+        raise IntakeError("risk_flags must be a structured object")
+    for key in ("real_sensitive_data", "live_media", "payments", "physical_control"):
+        value = flags.get(key)
+        if type(value) is not bool:
+            if preview:
+                warnings.append({"code": "RISK_UNCLASSIFIED", "field": key})
+            else:
+                blockers.append({"code": "RISK_UNCLASSIFIED", "field": key})
+    for key, record in (
+        ("real_sensitive_data", "specialist_review_record"),
+        ("live_media", "media_capacity_evidence"),
+        ("payments", "payment_integrity_evidence"),
+        ("physical_control", "physical_safety_review")
+    ):
+        if flags.get(key) is True:
+            warnings.append({"code": "HIGH_RISK_FEATURE", "field": key})
+            if not preview and not doc.get(record):
+                blockers.append({"code": "RISK_EVIDENCE_MISSING", "field": key, "evidence": record})
     features = answers.get("Q05", "")
     status = "NEEDS_INPUT" if critical_missing or exposure not in ("private_preview", "public_launch", "internal_production") or budget is None else ("NEEDS_EVIDENCE" if blockers else "READY_FOR_PLANNING")
     # READY_FOR_PLANNING is NOT permission to release, spend, merge or deploy.
@@ -212,12 +224,18 @@ def manager_packet(doc, assessment):
             raise IntakeError("Review artifact SHA256 required: " + role)
         if not str(item.get("reviewer", "")).strip():
             raise IntakeError("Reviewer identity required: " + role)
+    target_repo = doc.get("target_repo")
+    if not isinstance(target_repo, str) or not REPO.fullmatch(target_repo):
+        raise IntakeError("A reviewed concrete target GitHub repository is required")
+    reviewers = [signoffs[role]["reviewer"] for role in ("feasibility", "architecture", "security", "design")]
+    if len(set(reviewers)) != 4:
+        raise IntakeError("Reviews require distinct declared reviewer identities")
     plan = doc.get("execution_tasks")
     if not isinstance(plan, list) or not plan:
         raise IntakeError("Planner must supply actual specific acceptance-tested tasks; no generic auto-generated task queue")
     seen = set()
     for task in plan:
-        if not isinstance(task, dict) or any(not task.get(k) for k in ("id", "objective", "acceptance", "verification")):
+        if not isinstance(task, dict) or any(not isinstance(task.get(k), str) or not task[k].strip() for k in ("id", "objective", "acceptance", "verification")):
             raise IntakeError("Each task needs id, objective, acceptance and verification")
         if task["id"] in seen:
             raise IntakeError("Duplicate task ID")
