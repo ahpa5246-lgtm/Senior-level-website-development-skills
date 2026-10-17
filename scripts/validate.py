@@ -27,9 +27,9 @@ for file in root.rglob("*.md"):
 assert not errors, "Broken local links: " + repr(errors)
 assert len({r["category"] for r in rows}) == 10
 paired = (root / "docs/500-senior-pairs-ar.md").read_text(encoding="utf-8")
-paired_ids = [int(n) for n in re.findall(r"^\\|\\s*(\\d+)\\s*\\|", paired, re.M)]
+paired_ids = [int(line.split("|")[1].strip()) for line in paired.splitlines() if line.startswith("|") and line.split("|")[1].strip().isdigit()]
 assert paired_ids == list(range(1, 501)), "500-item paired matrix has missing/duplicate IDs"
-groups = re.findall(r"^###\\s+\\d{2}\\s+—", paired, re.M)
+groups = [line for line in paired.splitlines() if line.startswith("### ") and " — " in line]
 assert len(groups) == 25, "Expected 25 topic sections"
 questions = json.loads((root / "config/20-questions-ar.json").read_text(encoding="utf-8"))["questions"]
 assert [q["id"] for q in questions] == [f"Q{i:02}" for i in range(1, 21)]
