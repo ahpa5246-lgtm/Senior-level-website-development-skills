@@ -247,6 +247,11 @@ def check_review_bytes(doc, evidence_dir, assessment):
             receipt = json.loads(blob)
         except (ValueError, TypeError):
             raise IntakeError("Cost scenario report is not valid JSON") from None
+        if not isinstance(receipt, dict):
+            raise IntakeError("Cost report must be a JSON object")
+        scenarios = receipt.get("scenarios")
+        if not isinstance(scenarios, dict) or any(not isinstance(scenarios.get(k), dict) for k in ("normal", "peak", "recovery")):
+            raise IntakeError("Cost report requires three scenario objects")
         if (receipt.get("status") != "QUOTES_WITHIN_DECLARED_BUDGET" or
             receipt.get("currency") != assessment["budget"]["currency"] or
             receipt.get("monthly_budget") != assessment["budget"]["amount"] or
@@ -294,6 +299,9 @@ def manager_packet(doc, assessment, evidence_dir=None):
     return {
         "schema_version": "1.0", "project_id": doc["project_id"],
         "target_repo": doc.get("target_repo"),
+        "cost_scenarios_evidence": ({"artifact_path": doc.get("cost_report_path"),
+                                   "artifact_sha256": doc.get("cost_report_sha256")}
+                                  if doc.get("release_mode") != "private_preview" else None),
         "intake_status": assessment["status"],
         "monthly_budget": assessment["budget"], "cost_basis": assessment["estimate"],
         "review_signoffs": doc["review_signoffs"], "tasks": plan,
