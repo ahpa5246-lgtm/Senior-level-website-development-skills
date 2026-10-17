@@ -37,3 +37,7 @@ A milestone is not ready for human review unless all applicable gates pass:
 - Preserve checkpoints and metrics so interrupted jobs resume.
 - Compare against a baseline with repeated evaluations.
 - Never claim improvement from a single noisy run.
+
+
+## Mandatory published-product comparison for substantial UI work
+A UI milestone cannot be marked `AWAITING_HUMAN_REVIEW` on the strength of unit tests and a pretty mockup alone. Inspect at least two **released direct competitors** plus a suitable high-quality visual reference for multi-flow products. Compare user tasks, navigation hierarchy, page grouping, information density, whitespace, Arabic typography, semantic colors, meaningful 2D illustration, responsive window states, empty/loading/error states and accessibility; provide dated official source links and actual app screenshots at the implemented commit. Use `scripts/visual_quality_gate.py` and `docs/competitive-visual-qa-ar.md` in the one Senior Skills repository. Stage `implementation` or `release_review` cannot pass with missing actual evidence. Enforce a newly reviewed comparison after major UI milestones; this is NOT a running external benchmarking crawler. A `PASS_EVIDENCE_STRUCTURE` output only proves the required record shape, not that human visual examination or task testing was actually performed. Serious UX gaps remain human-review blockers.
