@@ -26,3 +26,10 @@ jobs:
         run: |
           python scripts/portfolio_intake.py assess --input examples/zero-budget-demo.intake.json --output /tmp/private-assessment.json
           python -c "import json; d=json.load(open('/tmp/private-assessment.json')); assert d['status']=='READY_FOR_PLANNING' and d['estimate']['monthly_quoted_subtotal'] is None and d['release_authorized'] is False"
+      - name: Public GitHub discovery smoke (verified refs; no clone)
+        if: github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python scripts/github_reference_research.py --query "event registration management" --limit 2 --out /tmp/public-reference-report.json --live
+          python -c "import json; x=json.load(open('/tmp/public-reference-report.json')); assert len(x['candidates'])>=1; assert all(v['reuse_status'] in ('STUDY_ONLY','LICENSE_REVIEW_REQUIRED') for v in x['candidates'])"
