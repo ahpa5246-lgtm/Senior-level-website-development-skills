@@ -42,5 +42,12 @@
     "Q18": "عربي RTL",
     "Q19": "مشرف من الفريق مسؤول عن الإشعارات والاسترجاع",
     "Q20": "عرض خاص للاختبار قبل نشر عام، النجاح بتسجيل تجريبي حقيقي"
+  },
+  "target_repo": "https://github.com/ahpa5246-lgtm/sample-workshops",
+  "risk_flags": {
+    "real_sensitive_data": false,
+    "live_media": false,
+    "payments": false,
+    "physical_control": false
   }
 }
