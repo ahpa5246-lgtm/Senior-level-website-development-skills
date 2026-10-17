@@ -6,6 +6,7 @@ JSON, with a fixed request budget. Signals guide human inspection, not approval.
 """
 import argparse
 import json
+import os
 import re
 import urllib.error
 import urllib.parse
@@ -43,11 +44,16 @@ class PublicGitHub:
         uri = API + path
         if params:
             uri += "?" + urllib.parse.urlencode(params)
-        req = urllib.request.Request(uri, headers={
+        headers = {
             "Accept": "application/vnd.github+json",
             "User-Agent": "Senior-Engineering-Reference-Research/1.0",
             "X-GitHub-Api-Version": "2022-11-28",
-        })
+        }
+        # Optional GitHub Actions read-only token; never log or serialize it.
+        token = os.environ.get("GITHUB_TOKEN", "")
+        if token and "\\n" not in token and "\\r" not in token:
+            headers["Authorization"] = "Bearer " + token
+        req = urllib.request.Request(uri, headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=9) as response:
                 if urllib.parse.urlsplit(response.geturl()).netloc != "api.github.com":
