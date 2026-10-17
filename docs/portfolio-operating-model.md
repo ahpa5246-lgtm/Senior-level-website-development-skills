@@ -41,3 +41,8 @@ Twenty short answers can omit rare edge cases; domain-triggered follow-ups remai
 ## Mandatory review and autonomy split
 
 The public skills repository contains **general knowledge and reusable checks**. The private manager contains owner answers, costs, working task queues and artifacts. Target repositories contain code, tests and implementation decisions. Model discussions have no authority to ignore the manager's current FACTORY_POLICY.md. Schedule frequency is a configuration and execution fact, not something a prompt alone can guarantee. Codex quotas and deployment permissions remain enforced.
+## Actual repository researcher
+
+Run `python3 scripts/github_reference_research.py --query "event registration management" --limit 3 --out local-research.json --live` after getting permission for public metadata searches. It fetches GitHub repository metadata, a concrete branch SHA, top-level file names and the declared license; it does **not** run or copy GitHub code. A license reported in GitHub metadata still requires manual review of the LICENSE text, additional terms and all external media/fonts/assets. Branch timestamps and search results can change; pin a SHA in accepted architectural decisions. See [the workshop comparison](workshop-reference-case-study.md).
+
+The private manager now has a read-only `scripts/reconcile_intake_packet.py` validator for verified review artifacts and existing queue statuses. The CLI requires `--packet`, `--evidence-dir` and `--out`; it refuses duplicate task IDs, stale SHA-256 evidence and currently paused/reviewing project states. Import to live GitHub task tracking remains an explicit separate authorized step.
