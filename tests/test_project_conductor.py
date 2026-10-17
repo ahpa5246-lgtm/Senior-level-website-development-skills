@@ -46,7 +46,7 @@ class ConductorTests(unittest.TestCase):
         keys=[t["id"] for t in out["plan_draft"]]
         self.assertFalse(any(x.endswith("-AUTH") or x.endswith("-DATA") for x in keys))
         self.assertEqual(len(out["plan_draft"]),9)
-        self.assertEqual(len(out["conditional_gates"]),9)
+        self.assertEqual(len(out["conditional_gates"]),10)
 
     def test_sensitive_real_time_plan_adds_security_and_data_work(self):
         self.doc["capabilities"]={"accounts":True,"persistence":True}
