@@ -40,3 +40,26 @@ Original synthesis based on targeted reading of four supplied books and visual i
 Documentation is in English for broad AI/tool compatibility; [Arabic quick start](docs/arabic-quick-start.md) explains how to use it.
 
 Run `python3 scripts/validate.py` from the repository root. This validates the documentation, not the security or performance of an application built with it.
+
+## Guided projects for non-programmers (new)
+
+Start with the [skeptical project conductor](prompts/skeptical-conductor.md) and its [portfolio operating model](docs/portfolio-operating-model.md). The interview uses [20 simple questions](config/20-questions-ar.json) and can stop before any paid/unsafe architecture choice. Use the **full [500 paired mistakes and senior remedies](docs/500-senior-pairs-ar.md)** alongside the original [100 evidence-oriented checks](docs/100-error-matrix.md). The paired 500 are conditional editorial guidance, not 500 mandatory tests.
+
+A real zero-dependency [intake verifier](scripts/portfolio_intake.py) checks incomplete answers, declared budgets and quotes, reference-repository licensing flags and reviewer/task-packet structure. Example: `python3 scripts/portfolio_intake.py assess --input examples/zero-budget-demo.intake.json`. A separate `packet` command requires linked reviewer evidence and a concrete task plan before emitting a supervisor handoff. **Passing the verifier does not certify provider rates, evidence truthfulness, design quality or production readiness.**
+
+The private [autonomous-project-manager](https://github.com/ahpa5246-lgtm/autonomous-project-manager) remains the project-portfolio supervisor; this public repo does not run Codex continuously, charge services or merge PRs. Keep real project briefs and budgets private.
+
+### Verified repository discovery (new)
+Use the [bounded public GitHub researcher](scripts/github_reference_research.py) to produce a JSON shortlist with repository URL, exact current commit, checked license endpoint, top-level test/deploy indicators and explicit unverified costs/security:
+```bash
+python3 scripts/github_reference_research.py --query "event registration management" --limit 2 --out local-reference-report.json --live
+```
+The live request requires explicit `--live`, never clones/runs source code and marks every candidate for human licensing and hosting review. Read the [documented workshop comparison](docs/workshop-reference-case-study.md) for a pinned Indico/pretix example. The research CLI successfully returned two GitHub candidates in [PR CI](https://github.com/ahpa5246-lgtm/Senior-level-website-development-skills/actions/runs/39031574932); this is *retrieval evidence*, not working-application proof. A private project brief must never be sent to a public GitHub search or saved in a public CI log.
+
+**Current packet CLI requirement:** Pass `--evidence-dir /path/to/private-review-files` when running `python3 scripts/portfolio_intake.py packet --input PRIVATE-plan.json --output PRIVATE-manager-handoff.json --evidence-dir /path/to/private-review-files`. Every reviewer must provide an existing relative `artifact_path` and a correct SHA-256 of that exact file. The validator checks file bytes but cannot establish that an independent specialist conducted the review. Keep reviewer files outside the public repository.
+
+### Hosting costs: normal, peak and recovery
+
+`python3 scripts/hosting_cost_scenarios.py --input PRIVATE-hosting-quotes.json --out PRIVATE-cost-report.json` computes three distinct scenarios from *manually supplied* dated HTTPS provider quotes, fixed fees, annual renewals, usage forecasts, included quotas and overage policy. Missing services and hard-cap overflows are **not** treated as $0. The [fictional test fixture](examples/fictional-hosting-costs.json) intentionally fails for peak saturation and unpriced transactional email. Always keep real budget and provider records private. A result within budget is not provider-price verification or release approval.
+
+For any public project packet, the [intake validator](scripts/portfolio_intake.py) now requires `cost_report_path` and `cost_report_sha256` pointing to that scenario report inside `--evidence-dir`. The private supervisor validates the same artifact before considering import. Neither repository pays fees, quotes hosting automatically or deploys.

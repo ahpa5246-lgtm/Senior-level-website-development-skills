@@ -1,0 +1,47 @@
+{
+  "currency": "USD",
+  "monthly_budget": 0,
+  "one_time_budget": 0,
+  "required_components": [
+    "static_pages",
+    "workshop_registrations",
+    "transactional_email"
+  ],
+  "quotes": [
+    {
+      "component": "static_pages",
+      "currency": "USD",
+      "source_url": "https://example.com/fictional-pricing",
+      "checked_on": "2026-10-17",
+      "fixed_monthly": 0,
+      "annual_fixed": 0,
+      "one_time": 0,
+      "unit": "monthly requests",
+      "included_units": 100,
+      "limit_policy": "hard_cap",
+      "usage_forecast": {
+        "normal": 80,
+        "peak": 200,
+        "recovery": 30
+      }
+    },
+    {
+      "component": "workshop_registrations",
+      "currency": "USD",
+      "source_url": "https://example.com/fictional-pricing",
+      "checked_on": "2026-10-17",
+      "fixed_monthly": 0,
+      "annual_fixed": 0,
+      "one_time": 0,
+      "unit": "registration writes",
+      "included_units": 50,
+      "limit_policy": "hard_cap",
+      "usage_forecast": {
+        "normal": 20,
+        "peak": 150,
+        "recovery": 10
+      }
+    }
+  ],
+  "note": "FICTIONAL EXAMPLE ONLY — these prices, limits and services are not real provider quotes."
+}
