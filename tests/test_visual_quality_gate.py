@@ -94,6 +94,12 @@ class CompetitiveGateTests(unittest.TestCase):
         self.d["references"][0]["observed_on"]=(date.today()-timedelta(days=121)).isoformat()
         self.assertIn("STALE_BENCHMARK",{x["code"] for x in self.run_check()["findings"]})
 
+    def test_nearby_local_date_tolerated_but_far_future_rejected(self):
+        self.d["references"][0]["observed_on"]=(date.today()+timedelta(days=1)).isoformat()
+        self.assertNotIn("STALE_BENCHMARK",{x["code"] for x in self.run_check()["findings"]})
+        self.d["references"][0]["observed_on"]=(date.today()+timedelta(days=3)).isoformat()
+        self.assertIn("STALE_BENCHMARK",{x["code"] for x in self.run_check()["findings"]})
+
     def test_requires_comparison_for_every_real_journey(self):
         self.d["comparisons"].pop()
         self.assertIn("UNCOMPARED_JOURNEY",{x["code"] for x in self.run_check()["findings"]})
