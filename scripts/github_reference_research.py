@@ -51,7 +51,7 @@ class PublicGitHub:
         }
         # Optional GitHub Actions read-only token; never log or serialize it.
         token = os.environ.get("GITHUB_TOKEN", "")
-        if token and "\\n" not in token and "\\r" not in token:
+        if token and not any(ord(ch) < 32 for ch in token):
             headers["Authorization"] = "Bearer " + token
         req = urllib.request.Request(uri, headers=headers)
         try:
