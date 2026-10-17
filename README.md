@@ -48,3 +48,10 @@ Start with the [skeptical project conductor](prompts/skeptical-conductor.md) and
 A real zero-dependency [intake verifier](scripts/portfolio_intake.py) checks incomplete answers, declared budgets and quotes, reference-repository licensing flags and reviewer/task-packet structure. Example: `python3 scripts/portfolio_intake.py assess --input examples/zero-budget-demo.intake.json`. A separate `packet` command requires linked reviewer evidence and a concrete task plan before emitting a supervisor handoff. **Passing the verifier does not certify provider rates, evidence truthfulness, design quality or production readiness.**
 
 The private [autonomous-project-manager](https://github.com/ahpa5246-lgtm/autonomous-project-manager) remains the project-portfolio supervisor; this public repo does not run Codex continuously, charge services or merge PRs. Keep real project briefs and budgets private.
+
+### Verified repository discovery (new)
+Use the [bounded public GitHub researcher](scripts/github_reference_research.py) to produce a JSON shortlist with repository URL, exact current commit, checked license endpoint, top-level test/deploy indicators and explicit unverified costs/security:
+```bash
+python3 scripts/github_reference_research.py --query "event registration management" --limit 2 --out local-reference-report.json --live
+```
+The live request requires explicit `--live`, never clones/runs source code and marks every candidate for human licensing and hosting review. Read the [documented workshop comparison](docs/workshop-reference-case-study.md) for a pinned Indico/pretix example. The research CLI successfully returned two GitHub candidates in [PR CI](https://github.com/ahpa5246-lgtm/Senior-level-website-development-skills/actions/runs/39031574932); this is *retrieval evidence*, not working-application proof. A private project brief must never be sent to a public GitHub search or saved in a public CI log.
