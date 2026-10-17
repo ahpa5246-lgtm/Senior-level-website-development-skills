@@ -40,3 +40,11 @@ Original synthesis based on targeted reading of four supplied books and visual i
 Documentation is in English for broad AI/tool compatibility; [Arabic quick start](docs/arabic-quick-start.md) explains how to use it.
 
 Run `python3 scripts/validate.py` from the repository root. This validates the documentation, not the security or performance of an application built with it.
+
+## Guided projects for non-programmers (new)
+
+Start with the [skeptical project conductor](prompts/skeptical-conductor.md) and its [portfolio operating model](docs/portfolio-operating-model.md). The interview uses [20 simple questions](config/20-questions-ar.json) and can stop before any paid/unsafe architecture choice. Use the **full [500 paired mistakes and senior remedies](docs/500-senior-pairs-ar.md)** alongside the original [100 evidence-oriented checks](docs/100-error-matrix.md). The paired 500 are conditional editorial guidance, not 500 mandatory tests.
+
+A real zero-dependency [intake verifier](scripts/portfolio_intake.py) checks incomplete answers, declared budgets and quotes, reference-repository licensing flags and reviewer/task-packet structure. Example: `python3 scripts/portfolio_intake.py assess --input examples/zero-budget-demo.intake.json`. A separate `packet` command requires linked reviewer evidence and a concrete task plan before emitting a supervisor handoff. **Passing the verifier does not certify provider rates, evidence truthfulness, design quality or production readiness.**
+
+The private [autonomous-project-manager](https://github.com/ahpa5246-lgtm/autonomous-project-manager) remains the project-portfolio supervisor; this public repo does not run Codex continuously, charge services or merge PRs. Keep real project briefs and budgets private.
