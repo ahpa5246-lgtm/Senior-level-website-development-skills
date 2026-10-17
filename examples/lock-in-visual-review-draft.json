@@ -1,0 +1,214 @@
+{
+  "project": "LOCK-IN",
+  "stage": "planning",
+  "kind": "desktop",
+  "complex_app": true,
+  "context": "Case study only based on one user screenshot, not an implementation audit. No app source was edited.",
+  "journeys": [
+    {
+      "id": "focus",
+      "goal": "بدء جلسة تركيز ومراجعة المؤقت والحجب الحقيقي",
+      "surface": "focus",
+      "states": [
+        "empty",
+        "loading",
+        "success",
+        "failure"
+      ]
+    },
+    {
+      "id": "rules",
+      "goal": "تحديد البرامج المسموحة أو المحجوبة وحفظ القائمة",
+      "surface": "rules",
+      "states": [
+        "empty",
+        "loading",
+        "success",
+        "failure"
+      ]
+    },
+    {
+      "id": "schedule",
+      "goal": "ضبط جدول أسبوعي قابل للتعديل",
+      "surface": "schedule",
+      "states": [
+        "empty",
+        "loading",
+        "success",
+        "failure"
+      ]
+    },
+    {
+      "id": "insights",
+      "goal": "مراجعة وقت التركيز ومحاولات فتح البرامج",
+      "surface": "insights",
+      "states": [
+        "empty",
+        "loading",
+        "success",
+        "failure"
+      ]
+    },
+    {
+      "id": "settings",
+      "goal": "تغيير إعدادات الأمان واللغة مع معرفة تبعاتها",
+      "surface": "settings",
+      "states": [
+        "empty",
+        "loading",
+        "success",
+        "failure"
+      ]
+    }
+  ],
+  "screens": [
+    {
+      "id": "focus",
+      "purpose": "بدء جلسة تركيز ومراجعة المؤقت والحجب الحقيقي",
+      "navigation": "Dedicated navigation destination with one clear primary action"
+    },
+    {
+      "id": "rules",
+      "purpose": "تحديد البرامج المسموحة أو المحجوبة وحفظ القائمة",
+      "navigation": "Dedicated navigation destination with one clear primary action"
+    },
+    {
+      "id": "schedule",
+      "purpose": "ضبط جدول أسبوعي قابل للتعديل",
+      "navigation": "Dedicated navigation destination with one clear primary action"
+    },
+    {
+      "id": "insights",
+      "purpose": "مراجعة وقت التركيز ومحاولات فتح البرامج",
+      "navigation": "Dedicated navigation destination with one clear primary action"
+    },
+    {
+      "id": "settings",
+      "purpose": "تغيير إعدادات الأمان واللغة مع معرفة تبعاتها",
+      "navigation": "Dedicated navigation destination with one clear primary action"
+    }
+  ],
+  "references": [
+    {
+      "name": "Cold Turkey Blocker",
+      "category": "direct",
+      "release_status": "released_product",
+      "official_url": "https://getcoldturkey.com/features/",
+      "visual_source_url": "https://getcoldturkey.com/support/user-guide/",
+      "observed_on": "2026-10-18",
+      "pattern": "Overview, Blocks, Statistics and Settings are documented as separate destinations for separate user outcomes.",
+      "tradeoff": "Enforcement behavior and system integration require OS privileges; copying exact architecture is not warranted."
+    },
+    {
+      "name": "Freedom",
+      "category": "direct",
+      "release_status": "released_product",
+      "official_url": "https://freedom.to/features",
+      "visual_source_url": "https://freedom.to/features",
+      "observed_on": "2026-10-18",
+      "pattern": "Blocklists, recurring focus schedules and locked sessions communicate distinct tasks and safety constraints.",
+      "tradeoff": "Its cross-device product scope and hosting assumptions may not fit a low-cost Windows-only application."
+    },
+    {
+      "name": "Opal",
+      "category": "aspirational",
+      "release_status": "released_product",
+      "official_url": "https://opal.so",
+      "visual_source_url": "https://brandkit.opal.so/",
+      "observed_on": "2026-10-18",
+      "pattern": "A published brand kit documents typography, black/white foundations and rare gradient emphasis instead of constant colored cards.",
+      "tradeoff": "Opal's premium art direction, trade dress, fonts and assets are not reusable as our brand; an original identity is needed."
+    }
+  ],
+  "comparisons": [
+    {
+      "journey_id": "focus",
+      "benchmark": "Opal",
+      "gap": "The supplied screenshot crowds several independent workflows into one form and leaves interaction hierarchy unclear.",
+      "improvement": "Propose a focused workspace with clear explanatory text and a primary action, progressive details, and meaningful empty states.",
+      "not_copied": "Do not duplicate the benchmark's icons, product illustration, logo, exact palette or layout pixel-for-pixel."
+    },
+    {
+      "journey_id": "rules",
+      "benchmark": "Cold Turkey Blocker",
+      "gap": "The supplied screenshot crowds several independent workflows into one form and leaves interaction hierarchy unclear.",
+      "improvement": "Propose a focused workspace with clear explanatory text and a primary action, progressive details, and meaningful empty states.",
+      "not_copied": "Do not duplicate the benchmark's icons, product illustration, logo, exact palette or layout pixel-for-pixel."
+    },
+    {
+      "journey_id": "schedule",
+      "benchmark": "Cold Turkey Blocker",
+      "gap": "The supplied screenshot crowds several independent workflows into one form and leaves interaction hierarchy unclear.",
+      "improvement": "Propose a focused workspace with clear explanatory text and a primary action, progressive details, and meaningful empty states.",
+      "not_copied": "Do not duplicate the benchmark's icons, product illustration, logo, exact palette or layout pixel-for-pixel."
+    },
+    {
+      "journey_id": "insights",
+      "benchmark": "Cold Turkey Blocker",
+      "gap": "The supplied screenshot crowds several independent workflows into one form and leaves interaction hierarchy unclear.",
+      "improvement": "Propose a focused workspace with clear explanatory text and a primary action, progressive details, and meaningful empty states.",
+      "not_copied": "Do not duplicate the benchmark's icons, product illustration, logo, exact palette or layout pixel-for-pixel."
+    },
+    {
+      "journey_id": "settings",
+      "benchmark": "Cold Turkey Blocker",
+      "gap": "The supplied screenshot crowds several independent workflows into one form and leaves interaction hierarchy unclear.",
+      "improvement": "Propose a focused workspace with clear explanatory text and a primary action, progressive details, and meaningful empty states.",
+      "not_copied": "Do not duplicate the benchmark's icons, product illustration, logo, exact palette or layout pixel-for-pixel."
+    }
+  ],
+  "design_system": {
+    "body_font": "To be selected with readable metrics and licensing",
+    "arabic_font": "To be selected after Arabic and mixed-script test",
+    "body_font_license_checked": false,
+    "illustrations_license_checked": false,
+    "type_hierarchy": [
+      "Page title / major task",
+      "Section title / navigation",
+      "Body / explanatory label",
+      "Support metadata"
+    ],
+    "spacing_scale": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48
+    ],
+    "color_roles": {
+      "canvas": "#F7F6FA",
+      "surface": "#FFFFFF",
+      "text": "#231A31",
+      "muted": "#625E69",
+      "action": "#7A46DD",
+      "focus": "#5035A2"
+    },
+    "illustration_policy": "Use one original 2D character illustration for empty or completed focus-state meaning; no random decorative 3D toys; respect motion and asset size.",
+    "density_rationale": "Focus is one quiet hero surface; list of blocked apps, schedules, historical insights and settings live in named destinations."
+  },
+  "review": {
+    "design_directions": [
+      {
+        "id": "quiet-focus",
+        "layout": "Timer first, a generous whitespace region, a concise next-action card and secondary navigation."
+      },
+      {
+        "id": "editorial-companion",
+        "layout": "Illustrated 2D companion with restrained progress visual and step-based setup rather than full-form home page."
+      }
+    ],
+    "selected_direction": "quiet-focus",
+    "decision_reason": "Most visits should make starting a safe focus session obvious, without exposing all configuration fields on entry.",
+    "implemented_commit": null,
+    "screenshots": [],
+    "tested_surfaces": [],
+    "keyboard_tested": false,
+    "rtl_tested": false,
+    "arabic_ui": true,
+    "empty_and_error_tested": false,
+    "comparison_rechecked_at_commit": false,
+    "task_test_evidence": ""
+  }
+}
