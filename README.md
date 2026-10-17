@@ -63,3 +63,20 @@ The live request requires explicit `--live`, never clones/runs source code and m
 `python3 scripts/hosting_cost_scenarios.py --input PRIVATE-hosting-quotes.json --out PRIVATE-cost-report.json` computes three distinct scenarios from *manually supplied* dated HTTPS provider quotes, fixed fees, annual renewals, usage forecasts, included quotas and overage policy. Missing services and hard-cap overflows are **not** treated as $0. The [fictional test fixture](examples/fictional-hosting-costs.json) intentionally fails for peak saturation and unpriced transactional email. Always keep real budget and provider records private. A result within budget is not provider-price verification or release approval.
 
 For any public project packet, the [intake validator](scripts/portfolio_intake.py) now requires `cost_report_path` and `cost_report_sha256` pointing to that scenario report inside `--evidence-dir`. The private supervisor validates the same artifact before considering import. Neither repository pays fees, quotes hosting automatically or deploys.
+
+
+## V2: one owner-friendly project conductor
+
+Start with [the Arabic nonprogrammer guide](docs/START_HERE_NONCODER_AR.md). The runnable conductor (scripts/project_conductor.py) collects 20 owner questions into a PRIVATE file, evaluates uncertainty/budget and produces a dependency-ordered engineering draft with book-attributed conditional gates from [config/senior-gates.json](config/senior-gates.json). It does not imply implementation, security certification, a rendered preview or a deployed application.
+
+For an existing PRIVATE intake file use:
+
+    python3 scripts/project_conductor.py blueprint --input /PRIVATE/answers.json --out /PRIVATE/blueprint.json --markdown-out /PRIVATE/explanation-ar.md
+
+Optionally combine independent research and scenario calculators, rather than presenting a pile of unrelated JSON files:
+
+    python3 scripts/project_conductor.py blueprint --input /PRIVATE/answers.json --references-file /PRIVATE/github-references.json --cost-file /PRIVATE/cost-scenarios.json --out /PRIVATE/full-blueprint.json --markdown-out /PRIVATE/full-explanation.md
+
+These attachments remain UNVERIFIED evidence claims: pinned GitHub SHA is not licence/asset review; a priced scenario is not a checked invoice. Neither input alone can authorize copying code, running Codex, spending, merging or deploying. Tests cover wrong budget currency, missing quotes, missing commits and false authorizations.
+
+The [PRIVATE manager](https://github.com/ahpa5246-lgtm/autonomous-project-manager) adds read-only reviewed packet reconciliation and a bounded sequential day-plan proposal. It does **not** install a 24/7 Codex worker or guarantee execution. All owner answers/reviews belong outside this public repository.

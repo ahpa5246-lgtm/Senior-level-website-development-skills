@@ -24,3 +24,12 @@ Do not convert advisory heuristics into universal laws. Static sites need no inv
 ## Owner-guided discovery and portfolio routing
 
 For new projects or major architecture/hosting changes requested by non-programmers, read [the skeptical conductor](prompts/skeptical-conductor.md), [portfolio operating model](docs/portfolio-operating-model.md), and [20-question contract](config/20-questions-ar.json) before generating target code. Get user constraints and independent evidence; run the actual intake validator. Treat its READY_FOR_PLANNING state only as permission to plan, not to deploy or spend. Reuse working components; check external licenses and operating economics. Existing bounded bug fixes can proceed under existing project policy without repeating the entire questionnaire.
+
+
+## Noncoder conductor V2: required default entrypoint for substantial work
+
+Use docs/START_HERE_NONCODER_AR.md and scripts/project_conductor.py before proposing a new application or significant new hosting/back-end architecture. Source-specific, conditional verification checks live in config/senior-gates.json. Run the actual tests; do not claim a check succeeded based on a written description alone.
+
+When the user provides actual GitHub repository research JSON or a hosting cost scenario report, use blueprint --references-file / --cost-file to join evidence into the owner report, and show which claims remain unverified. A GitHub license string is not permission to reuse all code/assets. A cost subtotal is not verification of provider rates. Always preserve open unknowns and owner limits.
+
+Never place owner-specific 20-question answers, account tokens, live customer records, reviewed handoff packets or provider quotes in this PUBLIC repository. Keep read-only analysis separate from autonomous implementation. The private manager's day-plan CLI creates illustrative slots, not an actual Cloud scheduler; only a verified runtime can start Codex after live reconciliation and the existing no-spend/no-merge rules.
