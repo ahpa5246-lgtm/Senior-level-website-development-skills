@@ -6,7 +6,7 @@ reference claims still need human examination. No benchmark screenshots are
 copied, downloaded, scraped or published by this tool.
 """
 import argparse
-from datetime import date, datetime
+from datetime import date, timedelta
 import json
 from pathlib import Path
 import re
@@ -142,7 +142,8 @@ def check(data, *, evidence_root, today=None, max_age_days=120):
             fault("BENCHMARK_NO_TRADEOFF", str(name) + ": mention a weakness/constraint, not blind imitation")
         try:
             seen = date.fromisoformat(item.get("observed_on", ""))
-            if seen > now or (now - seen).days > max_age_days:
+            # Allow one date of local/UTC timezone skew; do not accept arbitrary future evidence.
+            if seen > now + timedelta(days=1) or (now - seen).days > max_age_days:
                 fault("STALE_BENCHMARK", str(name) + ": revisit official product and visuals")
         except (ValueError, TypeError):
             fault("BENCHMARK_DATE", str(name) + ": ISO 8601 observation date required")
