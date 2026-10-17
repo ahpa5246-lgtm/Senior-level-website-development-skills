@@ -96,6 +96,29 @@ class ConductorTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"OUTSIDE"):
             c.safe_output(ROOT/"private-secrets.json")
 
+    def test_private_markdown_summary_reports_unknowns_honestly(self):
+        result=c.evaluate(self.doc)
+        text=c.markdown_owner_report(result)
+        self.assertIn("غير معروف",text)
+        self.assertIn("غير مصرح حاليًا",text)
+        self.assertIn("Codex",text)
+        self.assertNotIn("تم إطلاق الموقع",text)
+
+    def test_blueprint_writes_two_distinct_private_outputs(self):
+        with tempfile.TemporaryDirectory() as folder:
+            folder=Path(folder)
+            source=folder/"owner.json"
+            source.write_text(json.dumps(self.doc,ensure_ascii=False),encoding="utf-8")
+            report=folder/"assessment.json"
+            arabic=folder/"summary.md"
+            code=c.main(["blueprint","--input",str(source),
+                         "--out",str(report),"--markdown-out",str(arabic)])
+            self.assertEqual(code,0)
+            self.assertEqual(json.loads(report.read_text())["manager_packet_issued"],False)
+            self.assertTrue(arabic.read_text(encoding="utf-8").startswith("# تقرير"))
+            self.assertEqual(c.main(["blueprint","--input",str(source),
+                           "--out",str(report),"--markdown-out",str(arabic)]),2)
+
     def test_ranges_not_silently_guessed(self):
         self.assertIsNone(c.try_load("100-300"))
         self.assertIsNone(c.try_amount("اربعين دولار"))
