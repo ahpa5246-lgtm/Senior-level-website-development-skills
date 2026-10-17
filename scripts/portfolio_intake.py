@@ -199,10 +199,19 @@ def assess(doc):
 def manager_packet(doc, assessment):
     if assessment["status"] != "READY_FOR_PLANNING":
         raise IntakeError("Fail closed: owner constraints not resolved; cannot prepare manager packet")
-    if not isinstance(doc.get("review_signoffs"), dict) or not all(
-        doc["review_signoffs"].get(s, {}).get("passed") is True for s in ("feasibility", "architecture", "security", "design")
-    ):
-        raise IntakeError("Require four evidence-backed independent review signoffs before handoff")
+    signoffs = doc.get("review_signoffs")
+    if not isinstance(signoffs, dict):
+        raise IntakeError("Four evidence-backed reviews required")
+    for role in ("feasibility", "architecture", "security", "design"):
+        item = signoffs.get(role)
+        if not isinstance(item, dict) or item.get("passed") is not True:
+            raise IntakeError("Missing review signoff: " + role)
+        if not isinstance(item.get("artifact_url"), str) or not item["artifact_url"].startswith("https://"):
+            raise IntakeError("Review artifact HTTPS link required: " + role)
+        if not re.fullmatch(r"[a-f0-9]{64}", str(item.get("artifact_sha256", ""))):
+            raise IntakeError("Review artifact SHA256 required: " + role)
+        if not str(item.get("reviewer", "")).strip():
+            raise IntakeError("Reviewer identity required: " + role)
     plan = doc.get("execution_tasks")
     if not isinstance(plan, list) or not plan:
         raise IntakeError("Planner must supply actual specific acceptance-tested tasks; no generic auto-generated task queue")
