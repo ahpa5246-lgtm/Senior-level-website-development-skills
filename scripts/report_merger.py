@@ -1,5 +1,6 @@
 """Join reference/cost tool results into a proposal; never authorize source reuse or a bill."""
 import re
+import math
 
 REPO = re.compile(r"^https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/?$")
 
@@ -40,7 +41,10 @@ def combine_evidence(blueprint, references=None, cost=None):
         owner = report["owner_safe_summary"].get("budget")
         if not isinstance(cost, dict) or not isinstance(cost.get("scenarios"), dict):
             raise ValueError("Pricing report requires normal, peak and recovery scenarios")
-        if not isinstance(owner, dict) or cost.get("currency") != owner.get("currency") or cost.get("monthly_budget") != owner.get("amount"):
+        budget = cost.get("monthly_budget")
+        if (not isinstance(owner, dict) or type(budget) not in (int, float)
+                or not math.isfinite(budget) or budget < 0
+                or cost.get("currency") != owner.get("currency") or budget != owner.get("amount")):
             raise ValueError("Pricing report disagrees with owner monthly budget/currency")
         if set(cost["scenarios"]) != {"normal", "peak", "recovery"}:
             raise ValueError("Missing required pricing scenarios")
@@ -51,6 +55,10 @@ def combine_evidence(blueprint, references=None, cost=None):
             amount = raw.get("quoted_total")
             if amount is not None and (type(amount) not in (float, int) or not 0 <= amount < 1e12):
                 raise ValueError("Bad pricing value in "+name)
+            if raw["total_is_complete"] and amount is None:
+                raise ValueError("A complete pricing scenario needs a total: " + name)
+            if amount is not None and raw["over_budget"] != (amount > budget):
+                raise ValueError("Pricing over_budget flag contradicts the declared budget: " + name)
             items[name] = {"quoted_total":amount, "complete":raw["total_is_complete"],
                            "over_budget":raw["over_budget"]}
         report["cost_scenarios"] = {
@@ -59,6 +67,7 @@ def combine_evidence(blueprint, references=None, cost=None):
             "provider_prices_independently_verified":False,
             "release_authorized":False}
         if (cost.get("status") != "QUOTES_WITHIN_DECLARED_BUDGET"
+                or cost.get("unpriced")
                 or any(not item["complete"] or item["over_budget"] for item in items.values())):
             report["skeptical_findings"] = list(report["skeptical_findings"]) + [
                 {"code":"COST_SCENARIO_BLOCKER", "reason":"Cost forecast exceeds budget or is incomplete"}]
