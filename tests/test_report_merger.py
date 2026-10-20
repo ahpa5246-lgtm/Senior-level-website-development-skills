@@ -63,7 +63,9 @@ class MergerTests(unittest.TestCase):
 if __name__=="__main__":
     unittest.main()
 
-class CostConsistencyTests(MergerTests):
+class CostConsistencyTests(unittest.TestCase):
+    setUp = MergerTests.setUp
+
     def test_report_cannot_hide_cost_above_declared_budget(self):
         self.cost["scenarios"]["peak"]["quoted_total"] = 1.0
         with self.assertRaisesRegex(ValueError, "budget"):
