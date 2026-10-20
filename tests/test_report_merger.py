@@ -62,3 +62,25 @@ class MergerTests(unittest.TestCase):
             self.assertIn("GitHub",md.read_text(encoding="utf-8"))
 if __name__=="__main__":
     unittest.main()
+
+class CostConsistencyTests(MergerTests):
+    def test_report_cannot_hide_cost_above_declared_budget(self):
+        self.cost["scenarios"]["peak"]["quoted_total"] = 1.0
+        with self.assertRaisesRegex(ValueError, "budget"):
+            combine_evidence(self.base, None, self.cost)
+
+    def test_complete_total_cannot_be_missing(self):
+        self.cost["scenarios"]["recovery"]["quoted_total"] = None
+        with self.assertRaisesRegex(ValueError, "complete"):
+            combine_evidence(self.base, None, self.cost)
+
+    def test_boolean_budget_cannot_impersonate_zero(self):
+        self.cost["monthly_budget"] = False
+        with self.assertRaisesRegex(ValueError, "budget"):
+            combine_evidence(self.base, None, self.cost)
+
+    def test_unpriced_service_cannot_disappear_behind_pass_status(self):
+        self.cost["unpriced"] = ["Transactional email"]
+        result = combine_evidence(self.base, None, self.cost)
+        self.assertIn("COST_SCENARIO_BLOCKER",
+                      {finding["code"] for finding in result["skeptical_findings"]})
