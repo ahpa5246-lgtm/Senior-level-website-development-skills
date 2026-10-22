@@ -57,7 +57,16 @@ def check_screenshot(root, name):
         return False
     if path.suffix.lower() not in (".png", ".jpg", ".jpeg", ".webp"):
         return False
-    return path.is_file() and 100 <= path.stat().st_size < 15_000_000
+    if not path.is_file() or not 100 <= path.stat().st_size < 15_000_000:
+        return False
+    with path.open("rb") as screenshot:
+        header = screenshot.read(12)
+    suffix = path.suffix.lower()
+    if suffix == ".png":
+        return header.startswith(b"\x89PNG\r\n\x1a\n")
+    if suffix in (".jpg", ".jpeg"):
+        return header.startswith(b"\xff\xd8\xff")
+    return header.startswith(b"RIFF") and header[8:12] == b"WEBP"
 
 
 def check(data, *, evidence_root, today=None, max_age_days=120):
