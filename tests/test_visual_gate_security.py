@@ -36,10 +36,12 @@ class VisualGateSecurityTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "small.png").write_bytes(b"x" * 99)
-            (root / "valid.png").write_bytes(b"x" * 100)
+            (root / "valid.png").write_bytes(b"\\x89PNG\\r\\n\\x1a\\n" + b"x" * 92)
             (root / "invalid.txt").write_bytes(b"x" * 100)
             self.assertFalse(gate.check_screenshot(root, "small.png"))
             self.assertTrue(gate.check_screenshot(root, "valid.png"))
+            (root / "fake.png").write_bytes(b"x" * 100)
+            self.assertFalse(gate.check_screenshot(root, "fake.png"))
             self.assertFalse(gate.check_screenshot(root, "invalid.txt"))
 
     def test_safe_read_rejects_oversized_input(self):
