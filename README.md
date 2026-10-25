@@ -1,5 +1,32 @@
 # Senior-level website development framework
 
+## Download, setup and project overview
+
+A practical delivery and verification framework for AI-assisted engineering.
+
+Project intake; architecture decisions; security boundaries; visual evidence; bounded supervisor tooling.
+
+![Project workflow illustration](docs/project-overview.svg)
+
+[Download source ZIP](https://github.com/ahpa5246-lgtm/Senior-level-website-development-skills/archive/refs/heads/main.zip) · [Changes and branches](https://github.com/ahpa5246-lgtm/Senior-level-website-development-skills/branches) · [Verification notes](docs/QUALITY_REVIEW.md)
+
+The ZIP contains source code. Installation steps and external runtime requirements are listed below.
+
+```bash
+git clone https://github.com/ahpa5246-lgtm/Senior-level-website-development-skills.git
+cd Senior-level-website-development-skills
+```
+
+From the repository directory:
+
+```text
+python -m unittest discover -s tests -v
+# Start with AGENTS.md and docs/01-delivery-workflow.md.
+```
+
+The diagram is a project illustration. Test results and runtime limitations are recorded in [the review](docs/QUALITY_REVIEW.md); it is not a production-readiness certification.
+
+
 A practical decision and verification framework for AI-assisted engineering. Quality means complete user outcomes, protected data, measured performance, understandable code, and recoverable operations. File count, visual polish, and architectural complexity are not evidence of quality.
 
 ## Start here
